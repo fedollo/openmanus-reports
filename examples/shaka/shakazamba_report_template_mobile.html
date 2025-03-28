@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Marketing Shakazamba - Mobile</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f9f9f9;
+            --dark-bg: #121212;
+            --text-light: #f8f9fa;
+            --text-dark: #333;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode header {
+            background-color: #1a1a1a;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            margin: 0;
+            padding: 0 15px;
+        }
+
+        .section {
+            background-color: white;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        body.dark-mode .section {
+            background-color: #1e1e1e;
+            box-shadow: 0 1px 3px rgba(255, 255, 255, 0.05);
+        }
+
+        .section-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-mode .section-header {
+            background-color: #2a2a2a;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .section-content {
+            padding: 15px;
+            display: none;
+        }
+
+        .section.active .section-content {
+            display: block;
+        }
+
+        .toggle-icon::before {
+            content: "+";
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .section.active .toggle-icon::before {
+            content: "-";
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            margin: 15px 0 10px;
+        }
+
+        body.dark-mode h3 {
+            color: #5dade2;
+        }
+
+        .screenshot {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .recommendation {
+            border-left: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin: 10px 0;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        body.dark-mode .recommendation {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .high-priority {
+            border-left-color: var(--accent-color);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+        body.dark-mode .high-priority {
+            background-color: rgba(231, 76, 60, 0.05);
+        }
+
+        .medium-priority {
+            border-left-color: #f39c12;
+            background-color: rgba(243, 156, 18, 0.1);
+        }
+
+        body.dark-mode .medium-priority {
+            background-color: rgba(243, 156, 18, 0.05);
+        }
+
+        .low-priority {
+            border-left-color: #2ecc71;
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+
+        body.dark-mode .low-priority {
+            background-color: rgba(46, 204, 113, 0.05);
+        }
+
+        .priority-label {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.7em;
+            font-weight: bold;
+            margin-right: 5px;
+            color: white;
+        }
+
+        .high {
+            background-color: var(--accent-color);
+        }
+
+        .medium {
+            background-color: #f39c12;
+        }
+
+        .low {
+            background-color: #2ecc71;
+        }
+
+        ul,
+        ol {
+            padding-left: 20px;
+        }
+
+        .summary-box {
+            background-color: var(--light-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        body.dark-mode .summary-box {
+            background-color: #2a2a2a;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.85em;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        body.dark-mode table,
+        body.dark-mode th,
+        body.dark-mode td {
+            border-color: #444;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        body.dark-mode th {
+            background-color: #2a2a2a;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        body.dark-mode tr:nth-child(even) {
+            background-color: #2a2a2a;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.9em;
+        }
+
+        body.dark-mode footer {
+            background-color: #1a1a1a;
+        }
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .control-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            font-size: 1.5em;
+            border: none;
+        }
+
+        .emergency {
+            background-color: var(--accent-color);
+        }
+
+        .dark-toggle {
+            background-color: #555;
+        }
+
+        body.dark-mode .dark-toggle {
+            background-color: #f9ca24;
+            color: #333;
+        }
+
+        .toc-panel {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            width: 280px;
+            height: 100%;
+            background-color: white;
+            overflow-y: auto;
+            transition: left 0.3s;
+            z-index: 2000;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .toc-panel {
+            background-color: #1e1e1e;
+        }
+
+        .toc-panel.open {
+            left: 0;
+        }
+
+        .toc-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        body.dark-mode .toc-header {
+            background-color: #2a2a2a;
+        }
+
+        .toc-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .toc-content {
+            padding: 15px;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 8px 5px;
+            text-decoration: none;
+            color: var(--text-dark);
+            border-bottom: 1px solid #eee;
+        }
+
+        body.dark-mode .toc-link {
+            color: var(--text-light);
+            border-bottom-color: #333;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1500;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Analisi Marketing Shakazamba</h1>
+    </header>
+
+    <div class="container">
+        <div class="section active">
+            <div class="section-header">
+                <h2>1. Riepilogo Esecutivo</h2>
+                <span class="toggle-icon"></span>
+            </div>
+            <div class="section-content">
+                <div class="summary-box">
+                    <p>Questa sezione contiene un riassunto delle principali conclusioni e raccomandazioni.</p>
+                </div>
+                <p>__INSERIRE_RIEPILOGO_ESECUTIVO__</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>2. Prima Impressione</h2>
+                <span class="toggle-icon"></span>
+            </div>
+            <div class="section-content">
+                <p>Valutazione dell'impatto immediato del sito nei primi 5 secondi.</p>
+                <img src="__PERCORSO_SCREENSHOT_HOMEPAGE__" alt="Homepage Shakazamba" class="screenshot">
+
+                <h3>Punti di Forza</h3>
+                <ul>
+                    <li>__PUNTO_FORZA_1__</li>
+                    <li>__PUNTO_FORZA_2__</li>
+                    <li>__PUNTO_FORZA_3__</li>
+                </ul>
+
+                <h3>Aree di Miglioramento</h3>
+                <ul>
+                    <li>__AREA_MIGLIORAMENTO_1__</li>
+                    <li>__AREA_MIGLIORAMENTO_2__</li>
+                    <li>__AREA_MIGLIORAMENTO_3__</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>3. Analisi Dettagliata</h2>
+                <span class="toggle-icon"></span>
+            </div>
+            <div class="section-content">
+                <h3>3.1 Proposta di Valore</h3>
+                <p>__ANALISI_PROPOSTA_VALORE__</p>
+
+                <h3>3.2 Percorso Utente</h3>
+                <p>__ANALISI_PERCORSO_UTENTE__</p>
+
+                <h3>3.3 Elementi Visivi</h3>
+                <p>__ANALISI_ELEMENTI_VISIVI__</p>
+
+                <h3>3.4 Contenuto Testuale</h3>
+                <p>__ANALISI_CONTENUTO_TESTUALE__</p>
+
+                <h3>3.5 Social Proof</h3>
+                <p>__ANALISI_SOCIAL_PROOF__</p>
+
+                <h3>3.6 Performance Tecnica</h3>
+                <p>__ANALISI_PERFORMANCE_TECNICA__</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>4. Raccomandazioni</h2>
+                <span class="toggle-icon"></span>
+            </div>
+            <div class="section-content">
+                <div class="recommendation high-priority">
+                    <h3><span class="priority-label high">ALTA</span> 1. __TITOLO_RACCOMANDAZIONE_1__</h3>
+                    <p><strong>Problema:</strong> __DESCRIZIONE_PROBLEMA_1__</p>
+                    <p><strong>Soluzione:</strong> __SOLUZIONE_PROPOSTA_1__</p>
+                    <p><strong>Beneficio:</strong> __BENEFICIO_ATTESO_1__</p>
+                    <p><strong>Tempi:</strong> __TEMPO_IMPLEMENTAZIONE_1__</p>
+                </div>
+
+                <div class="recommendation high-priority">
+                    <h3><span class="priority-label high">ALTA</span> 2. __TITOLO_RACCOMANDAZIONE_2__</h3>
+                    <p><strong>Problema:</strong> __DESCRIZIONE_PROBLEMA_2__</p>
+                    <p><strong>Soluzione:</strong> __SOLUZIONE_PROPOSTA_2__</p>
+                    <p><strong>Beneficio:</strong> __BENEFICIO_ATTESO_2__</p>
+                    <p><strong>Tempi:</strong> __TEMPO_IMPLEMENTAZIONE_2__</p>
+                </div>
+
+                <div class="recommendation medium-priority">
+                    <h3><span class="priority-label medium">MEDIA</span> 3. __TITOLO_RACCOMANDAZIONE_3__</h3>
+                    <p><strong>Problema:</strong> __DESCRIZIONE_PROBLEMA_3__</p>
+                    <p><strong>Soluzione:</strong> __SOLUZIONE_PROPOSTA_3__</p>
+                    <p><strong>Beneficio:</strong> __BENEFICIO_ATTESO_3__</p>
+                    <p><strong>Tempi:</strong> __TEMPO_IMPLEMENTAZIONE_3__</p>
+                </div>
+
+                <!-- Aggiungere altri 7+ raccomandazioni seguendo lo stesso pattern -->
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>5. Analisi Concorrenti</h2>
+                <span class="toggle-icon"></span>
+            </div>
+            <div class="section-content">
+                <p>Confronto con 3-5 concorrenti principali.</p>
+
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Sito</th>
+                            <th>Punti di Forza</th>
+                            <th>Opportunità</th>
+                        </tr>
+                        <tr>
+                            <td>__CONCORRENTE_1__</td>
+                            <td>__PUNTI_FORZA_CONCORRENTE_1__</td>
+                            <td>__OPPORTUNITÀ_VS_CONCORRENTE_1__</td>
+                        </tr>
+                        <tr>
+                            <td>__CONCORRENTE_2__</td>
+                            <td>__PUNTI_FORZA_CONCORRENTE_2__</td>
+                            <td>__OPPORTUNITÀ_VS_CONCORRENTE_2__</td>
+                        </tr>
+                        <tr>
+                            <td>__CONCORRENTE_3__</td>
+                            <td>__PUNTI_FORZA_CONCORRENTE_3__</td>
+                            <td>__OPPORTUNITÀ_VS_CONCORRENTE_3__</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>6. Piano di Implementazione</h2>
+                <span class="toggle-icon"></span>
+            </div>
+            <div class="section-content">
+                <h3>Fase 1: Immediati (0-30 giorni)</h3>
+                <ul>
+                    <li>__INTERVENTO_IMMEDIATO_1__</li>
+                    <li>__INTERVENTO_IMMEDIATO_2__</li>
+                    <li>__INTERVENTO_IMMEDIATO_3__</li>
+                </ul>
+
+                <h3>Fase 2: Medio Termine (30-90 giorni)</h3>
+                <ul>
+                    <li>__INTERVENTO_MEDIO_TERMINE_1__</li>
+                    <li>__INTERVENTO_MEDIO_TERMINE_2__</li>
+                    <li>__INTERVENTO_MEDIO_TERMINE_3__</li>
+                </ul>
+
+                <h3>Fase 3: Lungo Termine (90+ giorni)</h3>
+                <ul>
+                    <li>__INTERVENTO_LUNGO_TERMINE_1__</li>
+                    <li>__INTERVENTO_LUNGO_TERMINE_2__</li>
+                    <li>__INTERVENTO_LUNGO_TERMINE_3__</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>7. Metriche di Successo</h2>
+                <span class="toggle-icon"></span>
+            </div>
+            <div class="section-content">
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Metrica</th>
+                            <th>Stato Attuale</th>
+                            <th>Obiettivo</th>
+                        </tr>
+                        <tr>
+                            <td>__METRICA_1__</td>
+                            <td>__STATO_ATTUALE_1__</td>
+                            <td>__OBIETTIVO_6MESI_1__</td>
+                        </tr>
+                        <tr>
+                            <td>__METRICA_2__</td>
+                            <td>__STATO_ATTUALE_2__</td>
+                            <td>__OBIETTIVO_6MESI_2__</td>
+                        </tr>
+                        <tr>
+                            <td>__METRICA_3__</td>
+                            <td>__STATO_ATTUALE_3__</td>
+                            <td>__OBIETTIVO_6MESI_3__</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2>8. Conclusioni</h2>
+                <span class="toggle-icon"></span>
+            </div>
+            <div class="section-content">
+                <p>__CONCLUSIONI__</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pannello Indice -->
+    <div class="toc-panel">
+        <div class="toc-header">
+            <h2>Indice</h2>
+            <button class="toc-close">&times;</button>
+        </div>
+        <div class="toc-content">
+            <a href="#" class="toc-link" data-section="0">1. Riepilogo Esecutivo</a>
+            <a href="#" class="toc-link" data-section="1">2. Prima Impressione</a>
+            <a href="#" class="toc-link" data-section="2">3. Analisi Dettagliata</a>
+            <a href="#" class="toc-link" data-section="3">4. Raccomandazioni</a>
+            <a href="#" class="toc-link" data-section="4">5. Analisi Concorrenti</a>
+            <a href="#" class="toc-link" data-section="5">6. Piano di Implementazione</a>
+            <a href="#" class="toc-link" data-section="6">7. Metriche di Successo</a>
+            <a href="#" class="toc-link" data-section="7">8. Conclusioni</a>
+        </div>
+    </div>
+
+    <!-- Overlay per il pannello -->
+    <div class="overlay"></div>
+
+    <!-- Controlli fissi -->
+    <div class="controls">
+        <button class="control-button toc-toggle">☰</button>
+        <button class="control-button dark-toggle">☀</button>
+        <button class="control-button emergency">⚠</button>
+    </div>
+
+    <footer>
+        <p>Report generato da OpenManus AI</p>
+        <p id="generation-date">__DATA_GENERAZIONE__</p>
+    </footer>
+
+    <script>
+        // Toggle sezioni
+        document.querySelectorAll('.section-header').forEach((header, index) => {
+            header.addEventListener('click', () => {
+                const section = header.parentElement;
+                section.classList.toggle('active');
+            });
+        });
+
+        // Toggle pannello ToC
+        const tocToggle = document.querySelector('.toc-toggle');
+        const tocPanel = document.querySelector('.toc-panel');
+        const tocClose = document.querySelector('.toc-close');
+        const overlay = document.querySelector('.overlay');
+
+        tocToggle.addEventListener('click', () => {
+            tocPanel.classList.toggle('open');
+            overlay.classList.toggle('active');
+        });
+
+        tocClose.addEventListener('click', () => {
+            tocPanel.classList.remove('open');
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            tocPanel.classList.remove('open');
+            overlay.classList.remove('active');
+        });
+
+        // Links indice
+        document.querySelectorAll('.toc-link').forEach((link) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionIndex = parseInt(link.dataset.section);
+                const sections = document.querySelectorAll('.section');
+
+                // Chiude tutte le sezioni
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Apre la sezione selezionata
+                if (sections[sectionIndex]) {
+                    sections[sectionIndex].classList.add('active');
+                    sections[sectionIndex].scrollIntoView({ behavior: 'smooth' });
+                }
+
+                // Chiude il pannello
+                tocPanel.classList.remove('open');
+                overlay.classList.remove('active');
+            });
+        });
+
+        // Toggle modalità scura
+        const darkToggle = document.querySelector('.dark-toggle');
+
+        darkToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+
+            if (document.body.classList.contains('dark-mode')) {
+                darkToggle.textContent = '☀';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkToggle.textContent = '☾';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // Emergenza button
+        const emergencyButton = document.querySelector('.emergency');
+
+        emergencyButton.addEventListener('click', () => {
+            alert('CONTATTI DI EMERGENZA:\n\nSupport Tecnico: support@shakazamba.com\nTelefono: +39 xxx-xxxxxxx\n\nOrari: Lun-Ven 9-18');
+        });
+
+        // Carica preferenza dark mode
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkToggle.textContent = '☀';
+        } else {
+            darkToggle.textContent = '☾';
+        }
+
+        // Imposta data
+        const currentDate = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('generation-date').textContent = 'Generato il ' + currentDate.toLocaleDateString('it-IT', options);
+    </script>
+</body>
+
+</html>

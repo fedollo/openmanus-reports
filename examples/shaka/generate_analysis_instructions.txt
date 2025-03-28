@@ -1,0 +1,55 @@
+ANALISI DI MARKETING SHAKAZAMBA
+
+Analizza il sito web shakazamba.com e genera un report dettagliato in formato HTML.
+
+STRUTTURA DEL REPORT:
+1. Introduzione
+   - Descrizione dell'azienda
+   - Obiettivi dell'analisi
+   - Metodologia utilizzata
+
+2. Analisi del Mercato
+   - Target di riferimento
+   - Concorrenti principali
+   - Tendenze di mercato
+
+3. Analisi del Sito Web
+   - Design e usabilità
+   - Contenuti e messaggi chiave
+   - Call-to-action
+   - SEO e visibilità
+
+4. Punti di Forza e Debolezze
+   - SWOT analysis
+   - Opportunità di miglioramento
+
+5. Raccomandazioni
+   - Priorità alta/media/bassa
+   - Timeline di implementazione
+   - Risorse necessarie
+
+OUTPUT RICHIESTI:
+1. File HTML principale: examples/shaka/shakazamba_analysis_pdf.html
+   - Design professionale e responsive
+   - Stili CSS ottimizzati per la stampa
+   - Struttura chiara e leggibile
+   - Formattazione A4 con margini corretti
+
+2. Contenuto:
+   - Testo dettagliato e professionale
+   - Tabelle e metriche
+   - Grafici e visualizzazioni
+   - Esempi concreti e dati
+
+3. Stile:
+   - Font: Helvetica Neue, Arial
+   - Colori professionali
+   - Layout pulito e organizzato
+   - Ottimizzato per la stampa
+
+AZIONI:
+1. Analizza il sito web shakazamba.com
+2. Genera il contenuto del report
+3. Crea il file HTML con la formattazione corretta
+4. Verifica la leggibilità e la struttura
+5. Assicurati che sia pronto per la conversione in PDF

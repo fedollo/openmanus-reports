@@ -1,0 +1,112 @@
+GENERA GRAFICO BRADLEY SIDEROGRAPH CON INDICE S&P500
+
+OBIETTIVO:
+Creare un grafico professionale che mostri l'andamento dell'indice S&P500 su base settimanale in formato candlestick, con sovrapposto il calendario delle potenziali inversioni secondo il Bradley Siderograph per il periodo 2025-2027.
+
+INPUT:
+- Dati storici S&P500 degli ultimi 2 anni
+- Calendario Bradley Siderograph 2025-2027 (fornito di seguito)
+- Librerie Python: matplotlib, pandas, yfinance, mplfinance
+
+OUTPUT:
+- File immagine: examples/siderograph/bradley_siderograph_sp500.png (risoluzione alta)
+- File PDF: examples/siderograph/bradley_siderograph_sp500.pdf
+
+SPECIFICHE DEL GRAFICO:
+1. STRUTTURA BASE:
+   - Grafico principale: candlestick settimanale dell'indice S&P500
+   - Asse X: timeline dall'inizio 2025 alla fine 2027
+   - Asse Y principale: valori dell'indice S&P500
+   - Griglia leggera per facilitare la lettura
+
+2. VISUALIZZAZIONE BRADLEY SIDEROGRAPH:
+   - Linee verticali colorate per indicare i punti di inversione:
+     * ROSSO: punti di inversione ALTI (aspetti forti tra pianeti lenti)
+     * ARANCIONE: punti di inversione MEDI (mix di aspetti)
+     * VERDE: punti di inversione BASSI (principalmente aspetti favorevoli)
+   - Spessore delle linee proporzionale all'importanza dell'evento
+   - Etichette compatte per identificare gli eventi principali
+   - Evidenziare con doppio spessore gli eventi MAGGIORI
+
+3. FORMATTAZIONE:
+   - Tema professionale con sfondo bianco o grigio chiaro
+   - Titolo: "BRADLEY SIDEROGRAPH 2025-2027 & S&P500"
+   - Sottotitolo: "Analisi dei punti di inversione astrologici e indice di mercato"
+   - Legenda chiara per tutti gli elementi
+   - Annotazioni leggibili anche su stampa
+
+4. CARATTERISTICHE AGGIUNTIVE:
+   - Media mobile a 20 settimane (linea blu)
+   - Media mobile a 50 settimane (linea rossa)
+   - Grafico secondario sotto il principale: volume settimanale degli scambi
+   - Evidenziare a parte i 4 punti di inversione MAGGIORI
+
+CALENDARIO BRADLEY SIDEROGRAPH 2025-2027:
+
+PUNTI DI INVERSIONE 2025:
+- 15-20 Gennaio 2025: [ALTO] Congiunzione Mercurio-Plutone + Quadratura Marte-Saturno
+- 10-15 Febbraio 2025: [MEDIO] Trigono Giove-Saturno (aspetto positivo, possibile ripresa)
+- 20-25 Marzo 2025: [ALTO] Quadratura Giove-Plutone (influenza forte sui mercati finanziari)
+- 5-10 Aprile 2025: [MEDIO] Congiunzione Venere-Urano (volatilità improvvisa)
+- 15-20 Maggio 2025: [ALTO] Opposizione Marte-Saturno + Quadratura Giove-Urano
+- 10-15 Giugno 2025: [BASSO] Trigono multiplo tra pianeti veloci (periodo favorevole)
+- 20-25 Luglio 2025: [ALTO] Quadratura Saturno-Urano (tensione economica)
+- 15-20 Agosto 2025: [MEDIO] Opposizione Sole-Nettuno + aspetti multipli di Mercurio
+- 10-15 Settembre 2025: [ALTO] Congiunzione Marte-Plutone (potenziale forte inversione)
+- 5-10 Ottobre 2025: [BASSO] Trigono Giove-Plutone (opportunità di crescita)
+- 18-25 Novembre 2025: [ALTO] Quadratura multipla tra pianeti lenti e veloci
+- 15-20 Dicembre 2025: [MEDIO] Congiunzione Mercurio-Saturno (rallentamento)
+
+PUNTI DI INVERSIONE 2026:
+- 10-15 Gennaio 2026: [ALTO] Quadratura Giove-Nettuno (illusione nei mercati)
+- 5-10 Febbraio 2026: [MEDIO] Congiunzione Venere-Marte (energia mista)
+- 20-25 Marzo 2026: [ALTO MAGGIORE] Opposizione Giove-Saturno (punto di inversione MAGGIORE)
+- 10-15 Aprile 2026: [BASSO] Trigono multiplo tra pianeti veloci
+- 1-5 Maggio 2026: [ALTO] Quadratura Marte-Plutone (tensione intensificata)
+- 15-20 Giugno 2026: [MEDIO] Congiunzione Giove-Urano (innovazione/volatilità)
+- 5-10 Luglio 2026: [ALTO] Quadratura multipla tra Sole, Marte e pianeti esterni
+- 15-20 Agosto 2026: [BASSO] Trigono Venere-Giove-Saturno (periodo favorevole)
+- 20-25 Settembre 2026: [ALTO] Opposizione Marte-Urano + aspetti di Mercurio
+- 5-10 Ottobre 2026: [MEDIO] Congiunzione Venere-Saturno (cautela nei mercati)
+- 15-20 Novembre 2026: [ALTO] Quadratura Giove-Plutone (forte tensione, possibile crisi)
+- 10-15 Dicembre 2026: [BASSO] Trigono multiplo (stabilizzazione temporanea)
+
+PUNTI DI INVERSIONE 2027:
+- 5-10 Gennaio 2027: [MEDIO] Congiunzione Mercurio-Marte (volatilità a breve termine)
+- 20-25 Febbraio 2027: [ALTO] Quadratura Giove-Saturno (tensione economica)
+- 15-20 Marzo 2027: [ALTO MAGGIORE] CONGIUNZIONE SATURNO-NETTUNO (EVENTO RARO/MAGGIORE)
+- 10-15 Aprile 2027: [MEDIO] Multipli aspetti di pianeti veloci
+- 1-5 Maggio 2027: [BASSO] Trigono Giove-Plutone (opportunità nascoste)
+- 15-20 Giugno 2027: [ALTO MAGGIORE] OPPOSIZIONE GIOVE-URANO (punto di inversione forte)
+- 5-10 Luglio 2027: [MEDIO] Congiunzione Venere-Marte (energia contrastante)
+- 20-25 Agosto 2027: [BASSO] Trigono Sole-Saturno (stabilità temporanea)
+- 10-15 Settembre 2027: [ALTO] Quadratura multipla tra pianeti veloci e lenti
+- 5-10 Ottobre 2027: [ALTO MAGGIORE] MULTIPLI ASPETTI SIMULTANEI (punto di svolta MAGGIORE)
+- 15-20 Novembre 2027: [MEDIO] Opposizione Marte-Saturno (tensione prolungata)
+- 10-15 Dicembre 2027: [BASSO] Trigono Giove-Saturno (miglioramento delle condizioni)
+
+SCRIPT DA CREARE:
+Creare uno script Python (examples/siderograph/create_bradley_chart.py) che utilizzi le librerie sopra indicate per generare il grafico con le specifiche richieste. Il grafico dovrebbe:
+1. Scaricare i dati storici dell'S&P500 usando yfinance
+2. Creare una proiezione logica per il periodo 2025-2027
+3. Visualizzare i dati in formato candlestick
+4. Aggiungere le linee verticali colorate per i punti di inversione Bradley
+5. Salvare il risultato nei formati richiesti
+
+LEGENDA:
+- ROSSO: Punto di inversione ALTO (aspetti forti tra pianeti lenti)
+- ARANCIONE: Punto di inversione MEDIO (mix di aspetti)
+- VERDE: Punto di inversione BASSO (principalmente aspetti favorevoli)
+
+NOTA IMPORTANTE:
+Le date sono approssimative (±5 giorni). Questo calendario mostra SOLO potenziali PUNTI DI INVERSIONE, non la DIREZIONE del mercato.
+
+AZIONI DA ESEGUIRE:
+1. Installare le librerie necessarie se non presenti:
+   pip install yfinance pandas matplotlib mplfinance
+
+2. Creare lo script Python per generare il grafico con le specifiche indicate
+
+3. Eseguire lo script per produrre i file di output
+
+4. Verificare che i file siano stati generati correttamente

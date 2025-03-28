@@ -1,0 +1,179 @@
+APPLICAZIONE DI TRADING AUTOMATICO BITCOIN
+========================================
+
+OBBIETTIVO:
+-----------
+Sviluppare un'applicazione che:
+1. Analizza il mercato Bitcoin in tempo reale
+2. Genera segnali di trading con leva
+3. Tiene traccia delle operazioni e del P&L
+4. Invia notifiche in tempo reale
+
+FUNZIONALITÀ PRINCIPALI:
+----------------------
+1. ANALISI DI MERCATO:
+   - Connessione in tempo reale a Binance/Bybit API
+   - Calcolo automatico degli indicatori:
+     * RSI (14 periodi)
+     * EMA 20 e 50
+     * Bollinger Bands
+     * Volume Profile
+   - Identificazione automatica del trend su timeframe 4h e 1h
+
+2. GENERAZIONE SEGNALI:
+   - Alert in tempo reale quando si verificano le condizioni:
+     * Trend confermato
+     * RSI in zona di ipercomprato/ipervenduto
+     * Prezzo fuori dalle Bollinger Bands
+     * Volume anomalo
+   - Calcolo automatico di:
+     * Punto di entrata
+     * Stop Loss (2%)
+     * Take Profit 1 (2%)
+     * Take Profit 2 (4%)
+     * Dimensione posizione ottimale
+
+3. GESTIONE OPERAZIONI:
+   - Tracking in tempo reale delle posizioni aperte
+   - Calcolo automatico del P&L
+   - Gestione automatica del trailing stop
+   - Chiusura parziale al primo target
+   - Notifiche per:
+     * Nuovi segnali
+     * Entrate in posizione
+     * Hit di stop loss
+     * Hit di take profit
+     * Modifiche di trailing stop
+
+4. NOTIFICHE:
+   - Telegram Bot per:
+     * Segnali di entrata
+     * Aggiornamenti posizioni
+     * Alert di rischio
+     * Report giornalieri
+   - Email per:
+     * Report settimanali
+     * Alert importanti
+     * Problemi tecnici
+
+5. REPORTING:
+   - Dashboard in tempo reale con:
+     * Grafici interattivi
+     * Statistiche delle operazioni
+     * P&L giornaliero/settimanale
+     * Win rate
+     * Risk/Reward ratio
+   - Report PDF giornalieri e settimanali
+   - Export dati in CSV per analisi
+
+TECNOLOGIE DA UTILIZZARE:
+------------------------
+1. Backend:
+   - Python 3.9+
+   - FastAPI per l'API REST
+   - SQLite/PostgreSQL per il database
+   - ccxt per le API di exchange
+   - pandas-ta per l'analisi tecnica
+   - python-telegram-bot per le notifiche
+
+2. Frontend:
+   - React/Next.js per la dashboard
+   - TradingView per i grafici
+   - TailwindCSS per lo styling
+   - WebSocket per aggiornamenti in tempo reale
+
+3. Infrastruttura:
+   - Docker per containerizzazione
+   - AWS/GCP per hosting
+   - GitHub Actions per CI/CD
+
+STRUTTURA DEL DATABASE:
+---------------------
+1. Tabelle principali:
+   - signals (segnali generati)
+   - trades (operazioni effettuate)
+   - positions (posizioni aperte)
+   - performance (statistiche)
+   - settings (configurazioni)
+
+2. Relazioni:
+   - signals -> trades (1:N)
+   - trades -> positions (1:N)
+   - positions -> performance (1:1)
+
+API ENDPOINTS:
+-------------
+1. Segnali:
+   - GET /api/signals (lista segnali)
+   - POST /api/signals (nuovo segnali)
+   - GET /api/signals/{id} (dettaglio segnale)
+
+2. Operazioni:
+   - GET /api/trades (lista operazioni)
+   - POST /api/trades (nuova operazione)
+   - PUT /api/trades/{id} (aggiorna operazione)
+
+3. Performance:
+   - GET /api/performance (statistiche)
+   - GET /api/performance/daily (report giornaliero)
+   - GET /api/performance/weekly (report settimanale)
+
+SICUREZZA:
+----------
+1. Autenticazione:
+   - JWT per API
+   - 2FA per accesso admin
+   - Rate limiting
+
+2. Protezione dati:
+   - Crittografia API keys
+   - Backup automatici
+   - Log di sicurezza
+
+3. Monitoraggio:
+   - Alert per errori
+   - Log di sistema
+   - Metriche di performance
+
+DEPLOYMENT:
+----------
+1. Ambiente di sviluppo:
+   - Docker Compose
+   - Hot reload
+   - Debug tools
+
+2. Ambiente di produzione:
+   - Kubernetes
+   - Load balancing
+   - Auto-scaling
+
+3. Monitoraggio:
+   - Prometheus
+   - Grafana
+   - Alert manager
+
+FASI DI SVILUPPO:
+----------------
+1. Fase 1 - Core (2 settimane):
+   - Setup infrastruttura
+   - Connessione API exchange
+   - Calcolo indicatori base
+
+2. Fase 2 - Segnali (2 settimane):
+   - Logica di generazione segnali
+   - Sistema di notifiche
+   - Dashboard base
+
+3. Fase 3 - Trading (2 settimane):
+   - Gestione posizioni
+   - Calcolo P&L
+   - Report avanzati
+
+4. Fase 4 - Ottimizzazione (2 settimane):
+   - Performance tuning
+   - UI/UX miglioramenti
+   - Testing e bug fixing
+
+NOTA IMPORTANTE:
+---------------
+L'applicazione deve essere testata estensivamente in ambiente di test prima del deployment in produzione. Implementare sempre circuit breaker e sistemi di sicurezza per evitare perdite non autorizzate.

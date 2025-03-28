@@ -1,0 +1,41 @@
+CONVERTI MARKDOWN IN PDF
+
+OBIETTIVO:
+Convertire il file Markdown dell'analisi finanziaria in un PDF formattato professionalmente.
+
+INPUT:
+- File Markdown: examples/financialanalysis/shakazamba_financial_analysis.md
+- Script Python: examples/financialanalysis/md_to_pdf.py
+
+OUTPUT:
+- File PDF: examples/financialanalysis/shakazamba_financial_analysis.pdf
+
+PREREQUISITI:
+1. Installa i pacchetti Python necessari:
+   pip install markdown pdfkit
+
+2. Assicurati che wkhtmltopdf sia installato:
+   - Su macOS: brew install wkhtmltopdf
+   - Su Linux: apt-get install wkhtmltopdf
+   - Su Windows: scarica l'installer da wkhtmltopdf.org
+
+AZIONI DA ESEGUIRE:
+1. Controlla che i pacchetti richiesti siano installati
+2. Rendi eseguibile lo script Python: chmod +x examples/financialanalysis/md_to_pdf.py
+3. Esegui lo script Python: python3 examples/financialanalysis/md_to_pdf.py
+4. Verifica che il PDF sia stato generato correttamente
+
+FORMATTAZIONE DEL PDF:
+- Formato A4
+- Margini: 20mm su tutti i lati
+- Font: Helvetica Neue, Arial
+- Colori per i punteggi:
+  * Alto (8-10): verde
+  * Medio (5-7): giallo
+  * Basso (1-4): rosso
+  * N/A: grigio
+
+NOTE:
+- Lo script utilizza pdfkit che fa da wrapper a wkhtmltopdf
+- Il PDF includerà intestazioni e piè di pagina personalizzati
+- La formattazione rispetterà il layout del file Markdown

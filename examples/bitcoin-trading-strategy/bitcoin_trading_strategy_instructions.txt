@@ -1,0 +1,100 @@
+STRATEGIA DI TRADING BITCOIN CON LEVA
+====================================
+
+OBBIETTIVO: Realizzare circa 2000$ di profitto al giorno attraverso operazioni con leva su Bitcoin.
+
+PARAMETRI INIZIALI:
+------------------
+- Capitale iniziale: 10000$
+- Leva utilizzata: 5x
+- Stop Loss: 2% per trade
+- Take Profit: 4% per trade
+- Numero massimo di trade al giorno: 2
+
+STRATEGIA DI ENTRATA:
+-------------------
+1. ANALISI TECNICA:
+   - Timeframe principale: 4 ore
+   - Timeframe di conferma: 1 ora
+   - Indicatori utilizzati:
+     * RSI (14 periodi)
+     * EMA 20 e 50
+     * Volume Profile
+     * Bollinger Bands
+
+2. CRITERI PER SHORT (VENDITA):
+   - Trend ribassista su timeframe 4h
+   - RSI sopra 70 (ipercomprato)
+   - Prezzo sopra la banda superiore di Bollinger
+   - Volume in calo
+   - EMA 20 sotto EMA 50
+
+3. CRITERI PER LONG (ACQUISTO):
+   - Trend rialzista su timeframe 4h
+   - RSI sotto 30 (ipervenduto)
+   - Prezzo sotto la banda inferiore di Bollinger
+   - Volume in aumento
+   - EMA 20 sopra EMA 50
+
+GESTIONE DEL RISCHIO:
+-------------------
+1. Stop Loss:
+   - Posizionato a 2% sotto/ sopra il punto di entrata
+   - Trailing stop dopo il primo 1% di profitto
+
+2. Take Profit:
+   - Primo target: 2% (50% della posizione)
+   - Secondo target: 4% (resto della posizione)
+
+3. Gestione del capitale:
+   - Massimo 2% del capitale per trade
+   - Massimo 4% del capitale giornaliero a rischio
+
+ESEMPIO PRATICO:
+---------------
+Scenario: BTC a 87000$ in downtrend giornaliero
+
+1. Analisi:
+   - Trend 4h: Ribassista
+   - RSI: 72 (ipercomprato)
+   - Prezzo: Sopra banda superiore BB
+   - Volume: In calo
+   - EMA 20 < EMA 50
+
+2. Operazione:
+   - Tipo: SHORT
+   - Punto di entrata: 87000$
+   - Stop Loss: 88740$ (+2%)
+   - Take Profit 1: 85260$ (-2%)
+   - Take Profit 2: 83520$ (-4%)
+   - Leva: 5x
+   - Dimensione posizione: 0.1 BTC (8700$)
+
+3. Gestione:
+   - Chiudi 50% a -2% (Take Profit 1)
+   - Sposta stop loss a break even
+   - Lascia correre il resto fino a -4%
+
+REGOLE AGGIUNTIVE:
+-----------------
+1. Non operare in condizioni di alta volatilità
+2. Evitare operazioni durante news importanti
+3. Rispettare sempre gli stop loss
+4. Non aumentare la dimensione delle posizioni in perdita
+5. Mantenere un journal di trading dettagliato
+
+MONITORAGGIO:
+------------
+1. Analisi giornaliera:
+   - Revisione delle operazioni
+   - Calcolo del P&L
+   - Aggiornamento del journal
+
+2. Analisi settimanale:
+   - Valutazione della performance
+   - Ottimizzazione dei parametri
+   - Revisione della strategia
+
+NOTA IMPORTANTE:
+---------------
+Questa strategia è progettata per mercati normali. In condizioni di mercato estreme o di alta volatilità, ridurre la dimensione delle posizioni o astenersi dal trading.

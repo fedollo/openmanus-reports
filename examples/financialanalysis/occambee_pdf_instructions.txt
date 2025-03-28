@@ -1,0 +1,43 @@
+GENERA PDF ANALISI FINANZIARIA OCCAMBEE
+
+OBIETTIVO:
+Generare un report professionale in formato PDF dell'analisi finanziaria di Occambee s.r.l.
+
+INPUT:
+- Script Python: examples/financialanalysis/create_occambee_pdf.py
+
+OUTPUT:
+- File PDF: examples/financialanalysis/occambee_financial_analysis.pdf
+
+AZIONI DA ESEGUIRE:
+1. Assicurati che lo script Python sia eseguibile:
+   chmod +x examples/financialanalysis/create_occambee_pdf.py
+
+2. Esegui lo script Python per generare il PDF:
+   /usr/bin/python3 examples/financialanalysis/create_occambee_pdf.py
+
+3. Verifica che il PDF sia stato generato correttamente
+
+CONTENUTO DEL REPORT:
+Il report PDF conterrà un'analisi finanziaria dettagliata di Occambee s.r.l., includendo:
+- Informazioni base sull'azienda
+- Analisi fondamentale
+- Analisi dei bilanci
+- Redditività e performance
+- Key Success Factors
+- Market Performance
+- Vantaggio Competitivo
+- Conclusioni e raccomandazioni
+
+FORMATTAZIONE DEL PDF:
+- Formato A4
+- Margini: 20mm su tutti i lati
+- Font: Helvetica
+- Colori professionali
+- Tabelle per una facile lettura
+- Layout pulito e organizzato
+
+NOTE AGGIUNTIVE:
+- L'analisi è focalizzata su Occambee s.r.l., azienda specializzata in soluzioni di AI conversazionale
+- Il punteggio complessivo è di 8.0/10, evidenziando i punti di forza dell'azienda
+- Sono fornite raccomandazioni strategiche per il miglioramento delle performance

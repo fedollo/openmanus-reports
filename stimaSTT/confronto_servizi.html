@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confronto Servizi Speech-to-Text per OpenManus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1,
+        h2 {
+            color: #2c3e50;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .highlight {
+            background-color: #e3f2fd;
+            font-weight: bold;
+        }
+
+        .pro {
+            color: green;
+        }
+
+        .con {
+            color: red;
+        }
+
+        .summary {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Confronto Servizi Speech-to-Text per OpenManus</h1>
+
+    <p>Questa pagina confronta i principali servizi di Speech-to-Text disponibili sul mercato, per aiutare OpenManus a
+        stimare i costi mensili per 200 conversazioni da 5 minuti (totale: 1000 minuti).</p>
+
+    <h2>Tabella Comparativa</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Servizio</th>
+                <th>Costo per minuto</th>
+                <th>Costo mensile stimato (1000 min)</th>
+                <th>Accuratezza</th>
+                <th>Lingue supportate</th>
+                <th>Latenza</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>OpenAI Whisper API</strong></td>
+                <td>$0.006 / minuto</td>
+                <td>$6.00</td>
+                <td>Alta</td>
+                <td>99 lingue</td>
+                <td>Media</td>
+                <td>Offre anche il modello open source da eseguire localmente</td>
+            </tr>
+            <tr>
+                <td><strong>ElevenLabs Speech to Text</strong></td>
+                <td>$0.01 / minuto (piano di base)</td>
+                <td>$10.00</td>
+                <td>Alta</td>
+                <td>Inglese e altre principali</td>
+                <td>Bassa</td>
+                <td>Conosciuto per prestazioni eccellenti, ma prezzi più alti</td>
+            </tr>
+            <tr class="highlight">
+                <td><strong>Google Speech-to-Text</strong></td>
+                <td>$0.004 / 15 secondi (standard)<br>= $0.016 / minuto</td>
+                <td>$16.00</td>
+                <td>Molto alta</td>
+                <td>125+ lingue</td>
+                <td>Bassa</td>
+                <td>Offre versione avanzata a costo più alto. Primi 60 minuti/mese gratuiti.</td>
+            </tr>
+            <tr>
+                <td><strong>Microsoft Azure Speech</strong></td>
+                <td>$0.0135 / minuto (standard)</td>
+                <td>$13.50</td>
+                <td>Alta</td>
+                <td>100+ lingue</td>
+                <td>Bassa</td>
+                <td>Offre 5 ore gratuite al mese</td>
+            </tr>
+            <tr>
+                <td><strong>Amazon Transcribe</strong></td>
+                <td>$0.00225 / secondo<br>= $0.135 / minuto</td>
+                <td>$135.00</td>
+                <td>Alta</td>
+                <td>31 lingue</td>
+                <td>Bassa</td>
+                <td>Offre trascrizione in tempo reale. Piano gratuito di 60 minuti al mese per 12 mesi.</td>
+            </tr>
+            <tr>
+                <td><strong>AssemblyAI</strong></td>
+                <td>$0.00025 / secondo<br>= $0.015 / minuto</td>
+                <td>$15.00</td>
+                <td>Alta</td>
+                <td>Inglese e altre principali</td>
+                <td>Media</td>
+                <td>Include funzionalità di riepilogo e sentiment analysis</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="summary">
+        <h2>Riepilogo dei Costi Mensili Stimati</h2>
+        <p>Per 200 conversazioni di 5 minuti (1000 minuti totali):</p>
+        <ul>
+            <li><strong>OpenAI Whisper API</strong>: $6.00 (più economico)</li>
+            <li><strong>ElevenLabs</strong>: $10.00</li>
+            <li><strong>Microsoft Azure</strong>: $13.50 (primi 300 minuti gratuiti)</li>
+            <li><strong>AssemblyAI</strong>: $15.00</li>
+            <li><strong>Google Speech-to-Text</strong>: $16.00 (primi 60 minuti gratuiti)</li>
+            <li><strong>Amazon Transcribe</strong>: $135.00 (più costoso, ma con 60 minuti/mese gratuiti per 12 mesi)
+            </li>
+        </ul>
+    </div>
+
+    <h2>Considerazioni Aggiuntive</h2>
+    <ul>
+        <li class="pro">OpenAI Whisper è il più conveniente dal punto di vista dei costi puri</li>
+        <li class="pro">Google e Microsoft offrono un equilibrio tra costo e qualità, con minuti gratuiti inclusi</li>
+        <li class="con">Amazon è significativamente più costoso ma offre funzionalità avanzate</li>
+        <li class="pro">Whisper può essere eseguito localmente, eliminando i costi di API ma richiedendo risorse
+            hardware</li>
+    </ul>
+</body>
+
+</html>

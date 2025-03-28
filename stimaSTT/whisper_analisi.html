@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Costi OpenAI Whisper per OpenManus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2c3e50;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .model-comparison {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .model-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .chart {
+            height: 300px;
+            background-color: #eef;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .pros-cons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .pros,
+        .cons {
+            flex: 1;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .pros {
+            background-color: #e7f9e7;
+            margin-right: 10px;
+        }
+
+        .cons {
+            background-color: #f9e7e7;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #1a73e8;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Analisi Dettagliata: OpenAI Whisper per OpenManus</h1>
+
+    <div class="card">
+        <h2>Panoramica Whisper</h2>
+        <p>Whisper è un sistema di riconoscimento vocale automatico (ASR) sviluppato da OpenAI. È disponibile sia come
+            API a pagamento che come modello open source che può essere eseguito localmente.</p>
+    </div>
+
+    <h2>Struttura dei Costi</h2>
+
+    <div class="card">
+        <h3>API Whisper</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descrizione</th>
+                    <th>Costo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Costo base</td>
+                    <td>$0.006 per minuto</td>
+                </tr>
+                <tr>
+                    <td>Costo per 200 conversazioni da 5 minuti (1000 minuti)</td>
+                    <td>$6.00 al mese</td>
+                </tr>
+                <tr>
+                    <td>Costo se le conversazioni aumentassero a 400 al mese</td>
+                    <td>$12.00 al mese</td>
+                </tr>
+                <tr>
+                    <td>Costo annuale (basato su 200 conversazioni/mese)</td>
+                    <td>$72.00 all'anno</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3>Whisper Locale</h3>
+        <p>Whisper può essere eseguito localmente come alternativa all'API:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Costi</th>
+                    <th>Descrizione</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Costo API</td>
+                    <td>$0 (gratuito)</td>
+                </tr>
+                <tr>
+                    <td>Risorse computazionali</td>
+                    <td>Richiede GPU per prestazioni in tempo reale</td>
+                </tr>
+                <tr>
+                    <td>Costo infrastruttura</td>
+                    <td>Server con GPU: ~$100-300/mese se su cloud</td>
+                </tr>
+                <tr>
+                    <td>Manutenzione</td>
+                    <td>Impegno tecnico per l'aggiornamento e la manutenzione del sistema</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Confronto tra Modelli Whisper</h2>
+
+    <div class="model-comparison">
+        <div class="model-card">
+            <h3>Whisper Tiny</h3>
+            <p><strong>Dimensione:</strong> 39M parametri</p>
+            <p><strong>Prestazioni:</strong> Basse, accuratezza limitata</p>
+            <p><strong>Risorse:</strong> 1GB VRAM, CPU possibile</p>
+            <p><strong>Uso consigliato:</strong> Test, frasi brevi, risorse limitate</p>
+        </div>
+        <div class="model-card">
+            <h3>Whisper Base</h3>
+            <p><strong>Dimensione:</strong> 74M parametri</p>
+            <p><strong>Prestazioni:</strong> Moderate</p>
+            <p><strong>Risorse:</strong> 1GB VRAM</p>
+            <p><strong>Uso consigliato:</strong> Ambiente con risorse limitate ma necessità di accuratezza</p>
+        </div>
+        <div class="model-card">
+            <h3>Whisper Medium</h3>
+            <p><strong>Dimensione:</strong> 769M parametri</p>
+            <p><strong>Prestazioni:</strong> Alte</p>
+            <p><strong>Risorse:</strong> 5GB VRAM</p>
+            <p><strong>Uso consigliato:</strong> Bilanciamento qualità/risorse</p>
+        </div>
+        <div class="model-card">
+            <h3>Whisper Large</h3>
+            <p><strong>Dimensione:</strong> 1550M parametri</p>
+            <p><strong>Prestazioni:</strong> Eccellenti</p>
+            <p><strong>Risorse:</strong> 10GB VRAM</p>
+            <p><strong>Uso consigliato:</strong> Produzione, alta accuratezza richiesta</p>
+        </div>
+    </div>
+
+    <h2>Analisi per OpenManus</h2>
+
+    <div class="pros-cons">
+        <div class="pros">
+            <h3>Vantaggi</h3>
+            <ul>
+                <li>Costo molto contenuto ($6/mese) per il volume previsto</li>
+                <li>Eccellente supporto multilingua (99 lingue)</li>
+                <li>Alta accuratezza di trascrizione</li>
+                <li>Nessun impegno a lungo termine</li>
+                <li>Semplicità di implementazione tramite API</li>
+                <li>Capacità di trascrivere anche in ambienti rumorosi</li>
+            </ul>
+        </div>
+        <div class="cons">
+            <h3>Svantaggi</h3>
+            <ul>
+                <li>Dipendenza da servizio cloud esterno</li>
+                <li>Potenziali problemi di privacy dei dati</li>
+                <li>Possibilità di costi crescenti in caso di espansione</li>
+                <li>Limiti di rate sulla API in caso di utilizzo intensivo</li>
+                <li>Latenza aggiuntiva rispetto a soluzione locale</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Proiezione dei Costi nel Tempo</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Scenario</th>
+                    <th>Conversazioni mensili</th>
+                    <th>Minuti mensili</th>
+                    <th>Costo mensile</th>
+                    <th>Costo annuale</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Attuale</td>
+                    <td>200</td>
+                    <td>1,000</td>
+                    <td>$6.00</td>
+                    <td>$72.00</td>
+                </tr>
+                <tr>
+                    <td>Crescita x2</td>
+                    <td>400</td>
+                    <td>2,000</td>
+                    <td>$12.00</td>
+                    <td>$144.00</td>
+                </tr>
+                <tr>
+                    <td>Crescita x5</td>
+                    <td>1,000</td>
+                    <td>5,000</td>
+                    <td>$30.00</td>
+                    <td>$360.00</td>
+                </tr>
+                <tr>
+                    <td>Crescita x10</td>
+                    <td>2,000</td>
+                    <td>10,000</td>
+                    <td>$60.00</td>
+                    <td>$720.00</td>
+                </tr>
+                <tr>
+                    <td>Punto di pareggio con locale*</td>
+                    <td>~3,300</td>
+                    <td>~16,700</td>
+                    <td>~$100.00</td>
+                    <td>~$1,200.00</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><small>* Punto approssimativo in cui il costo di una soluzione locale potrebbe diventare più
+                conveniente.</small></p>
+    </div>
+
+    <div class="card">
+        <h3>Raccomandazione per OpenManus</h3>
+        <p>Considerando il volume di 200 conversazioni mensili da 5 minuti, la soluzione <span class="highlight">OpenAI
+                Whisper API</span> risulta essere la più conveniente dal punto di vista economico e operativo:</p>
+        <ul>
+            <li>Costo mensile stimato: <span class="highlight">$6.00</span></li>
+            <li>Nessun costo di infrastruttura aggiuntivo</li>
+            <li>Facilità di implementazione</li>
+            <li>Possibilità di passare a una soluzione locale in futuro se il volume aumenta significativamente</li>
+            <li>Qualità eccellente di trascrizione</li>
+        </ul>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+# Stima dei costi Speech-to-Text per OpenManus
+
+Questo documento contiene informazioni per stimare i costi mensili di servizi Speech-to-Text (STT) per OpenManus, con un volume di 200 conversazioni da 5 minuti al mese (totale: 1000 minuti mensili).
+
+## Servizi da considerare:
+- OpenAI Whisper
+- ElevenLabs
+- Google Speech-to-Text
+- Microsoft Azure Speech
+
+## Fattori da considerare:
+- Costo per minuto/ora
+- Qualità della trascrizione
+- Lingue supportate
+- Latenza
+- API e integrazione
+- Limitazioni
+
+Vedere i report HTML nella cartella per tabelle comparative e analisi dettagliate.

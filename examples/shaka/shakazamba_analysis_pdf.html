@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SHAKAZAMBA Marketing Analysis Report</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2cm;
+            padding-bottom: 1cm;
+            border-bottom: 2px solid #2c3e50;
+        }
+
+        .header img {
+            max-width: 200px;
+            margin-bottom: 1cm;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 24pt;
+            margin: 0;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 18pt;
+            margin-top: 1.5cm;
+            margin-bottom: 0.5cm;
+            border-bottom: 1px solid #3498db;
+            padding-bottom: 0.3cm;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 14pt;
+            margin-top: 1cm;
+            margin-bottom: 0.3cm;
+        }
+
+        .section {
+            margin-bottom: 1cm;
+        }
+
+        .metric-box {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 0.5cm;
+            margin: 0.3cm 0;
+            border-radius: 4px;
+        }
+
+        .recommendation {
+            margin: 0.5cm 0;
+            padding-left: 0.5cm;
+            border-left: 4px solid #3498db;
+        }
+
+        .high-priority {
+            border-left-color: #e74c3c;
+        }
+
+        .medium-priority {
+            border-left-color: #f39c12;
+        }
+
+        .low-priority {
+            border-left-color: #2ecc71;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.5cm 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #dee2e6;
+            padding: 0.3cm;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        .footer {
+            margin-top: 2cm;
+            text-align: center;
+            font-size: 9pt;
+            color: #666;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>SHAKAZAMBA Marketing Analysis Report</h1>
+        <p>Report di Analisi e Raccomandazioni</p>
+        <p id="generation-date"></p>
+    </div>
+
+    <div class="section">
+        <h2>Executive Summary</h2>
+        <div id="executive-summary">
+            <!-- Contenuto executive summary -->
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>1. Analisi Strategica</h2>
+        <div id="strategic-analysis">
+            <!-- Contenuto analisi strategica -->
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. Analisi Tecnica</h2>
+        <div id="technical-analysis">
+            <!-- Contenuto analisi tecnica -->
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. Analisi Contenuti</h2>
+        <div id="content-analysis">
+            <!-- Contenuto analisi contenuti -->
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. Analisi Conversione</h2>
+        <div id="conversion-analysis">
+            <!-- Contenuto analisi conversione -->
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>5. Raccomandazioni Prioritarie</h2>
+        <div id="recommendations">
+            <!-- Contenuto raccomandazioni -->
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>6. Metriche di Successo</h2>
+        <div id="success-metrics">
+            <!-- Contenuto metriche -->
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>7. Piano d'Azione</h2>
+        <div id="action-plan">
+            <!-- Contenuto piano d'azione -->
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>8. Conclusioni</h2>
+        <div id="conclusions">
+            <!-- Contenuto conclusioni -->
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Report generato da OpenManus AI Assistant</p>
+        <p>© 2025 SHAKAZAMBA Marketing Analysis</p>
+    </div>
+
+    <script>
+        const currentDate = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('generation-date').textContent = 'Generato il ' + currentDate.toLocaleDateString('it-IT', options);
+    </script>
+</body>
+
+</html>

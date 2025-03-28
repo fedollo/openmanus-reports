@@ -1,0 +1,32 @@
+CONVERTI FILE HTML IN PDF
+
+INPUT:
+- File HTML esistente: examples/shaka/shakazamba_analysis_pdf.html
+
+OUTPUT:
+- File PDF: examples/shaka/shakazamba_marketing_analysis.pdf
+
+SPECIFICHE TECNICHE:
+- Formato: A4
+- Margini: 20mm su tutti i lati
+- DPI: 300
+- Qualità: Alta
+
+AZIONI:
+1. Leggi il file HTML esistente
+2. Mantieni la formattazione e gli stili CSS
+3. Converti in PDF mantenendo:
+   - Layout e struttura
+   - Font e dimensioni
+   - Colori e stili
+   - Tabelle e formattazione
+4. Salva il PDF nella directory specificata
+
+COMANDO DA ESEGUIRE:
+open -a Safari examples/shaka/shakazamba_analysis_pdf.html
+
+VERIFICA:
+1. Controlla che il file PDF sia stato creato
+2. Verifica che il contenuto sia corretto
+3. Assicurati che la formattazione sia professionale
+4. Conferma che il file sia accessibile e leggibile

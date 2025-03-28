@@ -1,0 +1,95 @@
+ANALISI FINANZIARIA SHAKAZAMBA srl
+
+OBIETTIVO:
+Conduct a comprehensive financial analysis of SHAKAZAMBA srl, including market listing status and detailed evaluation of various financial parameters.
+
+INPUT:
+- File Markdown: examples/financialanalysis/shakazamba_financial_analysis.md
+
+OUTPUT:
+- Report Markdown aggiornato: examples/financialanalysis/shakazamba_financial_analysis.md
+- Report PDF: examples/financialanalysis/shakazamba_financial_analysis.pdf
+
+STRUTTURA DEL REPORT:
+1. Informazioni Base
+   - Status di quotazione
+   - Dati societari principali
+   - Settore di operazione
+
+2. Analisi Fondamentale
+   - Salute finanziaria (1-10)
+   - Gestione aziendale (1-10)
+   - Posizione nel settore (1-10)
+   - Prospettive di crescita (1-10)
+
+3. Analisi dei Bilanci
+   - Stato patrimoniale (1-10)
+   - Conto economico (1-10)
+   - Rendiconto finanziario (1-10)
+   - Nota integrativa (1-10)
+
+4. Redditività e Performance
+   - Report degli utili (1-10)
+   - Margini di profitto (1-10)
+   - Crescita dei ricavi (1-10)
+
+5. Metriche di Valutazione
+   - Rapporto P/E (1-10)
+   - EPS (1-10)
+   - Altri indicatori di valutazione (1-10)
+
+6. Rendimento da Dividendi
+   - Yield da dividendo (1-10)
+   - Politica dei dividendi (1-10)
+
+7. Analisi Tecnica
+   - Trend dei prezzi (1-10)
+   - Pattern grafici (1-10)
+   - Indicatori di momentum (1-10)
+
+8. Analisi dei Volumi
+   - Volumi di scambio (1-10)
+   - Interesse degli investitori (1-10)
+
+9. Sentiment di Mercato
+   - Opinioni degli analisti (1-10)
+   - Notizie e eventi rilevanti (1-10)
+
+10. Fattori Macro e Microeconomici
+    - Indicatori economici (1-10)
+    - Trend del settore (1-10)
+
+11. Fattori Specifici dell'Azienda
+    - Team di gestione (1-10)
+    - Vantaggio competitivo (1-10)
+    - Strategie di crescita (1-10)
+
+12. Valutazione dei Rischi
+    - Volatilità di mercato (1-10)
+    - Rischi normativi (1-10)
+    - Rischi specifici dell'azienda (1-10)
+
+FORMATTAZIONE:
+- Mantieni la struttura Markdown esistente
+- Aggiorna solo i valori dei punteggi e le note
+- Assicurati che il layout rimanga pulito e professionale
+- Verifica che tutti i dati siano correttamente formattati
+
+CONCLUSIONE:
+- Calcola il punteggio finale complessivo
+- Aggiungi una sintesi dei risultati principali
+- Includi raccomandazioni basate sull'analisi
+
+AZIONI:
+1. Ricerca informazioni sulla quotazione di SHAKAZAMBA srl
+2. Analizza tutti i parametri elencati
+3. Assegna punteggi e note per ogni categoria
+4. Aggiorna il file Markdown con i dati dell'analisi
+5. Converti il report in PDF
+6. Verifica la completezza e accuratezza dell'analisi
+
+STRUTTURA DEI DATI:
+Per ogni metrica nel file Markdown:
+- Punteggio (1-10)
+- Nota sintetica di una frase
+- Dati a supporto quando disponibili

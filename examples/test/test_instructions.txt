@@ -1,0 +1,5 @@
+Test di base per verificare il funzionamento del sistema.
+
+1. Apri il sito https://example.com
+2. Verifica che il titolo della pagina sia "Example Domain"
+3. Crea un file di test HTML con il risultato

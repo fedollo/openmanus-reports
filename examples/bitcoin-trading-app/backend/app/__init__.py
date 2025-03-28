@@ -1,0 +1,3 @@
+"""
+Bitcoin Trading Bot
+"""

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Costi ElevenLabs Speech-to-Text per OpenManus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2c3e50;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .plan-comparison {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .plan-card {
+            flex: 1;
+            min-width: 250px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .plan-card h3 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .highlight {
+            background-color: #f0f7ff;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .pros-cons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .pros,
+        .cons {
+            flex: 1;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .pros {
+            background-color: #e7f9e7;
+            margin-right: 10px;
+        }
+
+        .cons {
+            background-color: #f9e7e7;
+        }
+
+        .feature-list {
+            background-color: #f5f5f5;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .recommendation {
+            background-color: #e3f2fd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 5px solid #1a73e8;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Analisi Dettagliata: ElevenLabs Speech-to-Text per OpenManus</h1>
+
+    <div class="card">
+        <h2>Panoramica ElevenLabs Speech-to-Text</h2>
+        <p>ElevenLabs offre tecnologie di AI vocale avanzate, incluso un servizio di Speech-to-Text (STT) che permette
+            di trascrivere audio in testo. È conosciuto principalmente per le sue soluzioni di Text-to-Speech (TTS) di
+            alta qualità, ma la loro offerta STT è in crescita.</p>
+    </div>
+
+    <h2>Struttura dei Costi</h2>
+
+    <div class="plan-comparison">
+        <div class="plan-card">
+            <h3>Piano Starter</h3>
+            <p><strong>Prezzo:</strong> $5/mese</p>
+            <p><strong>Costo STT:</strong> $0.01/minuto</p>
+            <p><strong>Minuti inclusi:</strong> Nessuno</p>
+            <p><strong>Costo per 1000 minuti:</strong> $10.00</p>
+            <p><strong>Caratteristiche aggiuntive:</strong> API di base, supporto via email</p>
+        </div>
+        <div class="plan-card">
+            <h3>Piano Creator</h3>
+            <p><strong>Prezzo:</strong> $22/mese</p>
+            <p><strong>Costo STT:</strong> $0.01/minuto</p>
+            <p><strong>Minuti inclusi:</strong> Nessuno (focus su TTS)</p>
+            <p><strong>Costo per 1000 minuti:</strong> $10.00 + $22.00 = $32.00</p>
+            <p><strong>Caratteristiche aggiuntive:</strong> API avanzata, supporto prioritario, funzioni di TTS avanzate
+            </p>
+        </div>
+        <div class="plan-card">
+            <h3>Piano Pro</h3>
+            <p><strong>Prezzo:</strong> $99/mese</p>
+            <p><strong>Costo STT:</strong> $0.008/minuto</p>
+            <p><strong>Minuti inclusi:</strong> 0</p>
+            <p><strong>Costo per 1000 minuti:</strong> $8.00 + $99.00 = $107.00</p>
+            <p><strong>Caratteristiche aggiuntive:</strong> Accesso completo all'API, supporto prioritario, funzionalità
+                avanzate</p>
+        </div>
+        <div class="plan-card">
+            <h3>Piano Enterprise</h3>
+            <p><strong>Prezzo:</strong> Personalizzato</p>
+            <p><strong>Costo STT:</strong> Negoziabile</p>
+            <p><strong>Minuti inclusi:</strong> Negoziabile</p>
+            <p><strong>Caratteristiche aggiuntive:</strong> Supporto dedicato, SLA garantiti, personalizzazione</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Costi Stimati per OpenManus</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Scenari</th>
+                    <th>Piano consigliato</th>
+                    <th>Costo mensile</th>
+                    <th>Costo annuale</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200 conversazioni da 5 minuti (1000 minuti)</td>
+                    <td>Starter</td>
+                    <td>$5 (piano) + $10 (STT) = $15.00</td>
+                    <td>$180.00</td>
+                </tr>
+                <tr>
+                    <td>400 conversazioni (2000 minuti)</td>
+                    <td>Starter</td>
+                    <td>$5 (piano) + $20 (STT) = $25.00</td>
+                    <td>$300.00</td>
+                </tr>
+                <tr>
+                    <td>1000 conversazioni (5000 minuti)</td>
+                    <td>Pro (per il prezzo migliore)</td>
+                    <td>$99 (piano) + $40 (STT) = $139.00</td>
+                    <td>$1,668.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="feature-list">
+        <h2>Caratteristiche Principali di ElevenLabs STT</h2>
+        <ul>
+            <li><strong>Accuratezza:</strong> Alta precisione nella trascrizione, particolarmente per l'inglese</li>
+            <li><strong>Supporto Multilingua:</strong> Supporto per diverse lingue principali, ma meno esteso rispetto
+                ad altri servizi</li>
+            <li><strong>Velocità:</strong> Trascrizione rapida</li>
+            <li><strong>Riconoscimento di parlanti multipli:</strong> Capacità di distinguere tra diversi parlanti</li>
+            <li><strong>Integrazione:</strong> API facile da integrare</li>
+            <li><strong>Punteggiatura:</strong> Aggiunge automaticamente punteggiatura</li>
+            <li><strong>Riconoscimento di termini tecnici:</strong> Buone prestazioni con terminologia specialistica
+            </li>
+        </ul>
+    </div>
+
+    <h2>Analisi per OpenManus</h2>
+
+    <div class="pros-cons">
+        <div class="pros">
+            <h3>Vantaggi</h3>
+            <ul>
+                <li>Alta qualità di trascrizione per l'inglese</li>
+                <li>Capacità di lavorare con audio di qualità variabile</li>
+                <li>Buona integrazione API</li>
+                <li>Possibilità di utilizzo congiunto con servizi TTS (Text-to-Speech) della stessa piattaforma</li>
+                <li>Ideale se OpenManus utilizza già altri servizi ElevenLabs</li>
+                <li>Supporto tecnico incluso</li>
+            </ul>
+        </div>
+        <div class="cons">
+            <h3>Svantaggi</h3>
+            <ul>
+                <li>Costo più elevato rispetto a Whisper ($15/mese vs $6/mese per 1000 minuti)</li>
+                <li>Meno lingue supportate rispetto a Whisper</li>
+                <li>Struttura di prezzo a due componenti (abbonamento + utilizzo)</li>
+                <li>Meno documentazione e community support rispetto ad alternative più diffuse</li>
+                <li>Meno esperienza nel mercato STT rispetto ad altri provider specializzati</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Confronto Diretto con Whisper</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Caratteristica</th>
+                    <th>ElevenLabs</th>
+                    <th>OpenAI Whisper</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Costo per 1000 minuti</td>
+                    <td>$15.00 (piano Starter)</td>
+                    <td>$6.00</td>
+                </tr>
+                <tr>
+                    <td>Accuratezza</td>
+                    <td>Alta</td>
+                    <td>Alta</td>
+                </tr>
+                <tr>
+                    <td>Lingue supportate</td>
+                    <td>~15-20 lingue principali</td>
+                    <td>99 lingue</td>
+                </tr>
+                <tr>
+                    <td>Modello Open-Source</td>
+                    <td>No</td>
+                    <td>Sì (versione locale disponibile)</td>
+                </tr>
+                <tr>
+                    <td>Utilizzo offline</td>
+                    <td>No</td>
+                    <td>Possibile con versione locale</td>
+                </tr>
+                <tr>
+                    <td>Riconoscimento parlanti</td>
+                    <td>Sì</td>
+                    <td>Limitato</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="recommendation">
+        <h3>Raccomandazione per OpenManus</h3>
+        <p>Per OpenManus con un volume di 200 conversazioni mensili da 5 minuti, <span class="highlight">ElevenLabs non
+                è la soluzione più economica</span> rispetto ad alternative come Whisper:</p>
+        <ul>
+            <li>Costo mensile ElevenLabs: <strong>$15.00</strong> (Piano Starter + utilizzo)</li>
+            <li>Costo mensile Whisper: <strong>$6.00</strong></li>
+            <li>Differenza annuale: <strong>$108.00</strong> ($180 vs $72)</li>
+        </ul>
+        <p><strong>Quando considerare ElevenLabs:</strong></p>
+        <ul>
+            <li>Se OpenManus utilizza già altri servizi di ElevenLabs (come Text-to-Speech)</li>
+            <li>Se è necessaria un'integrazione stretta tra STT e TTS nella stessa piattaforma</li>
+            <li>Se il riconoscimento di parlanti distinti è fondamentale</li>
+            <li>Se il servizio clienti dedicato è un fattore importante</li>
+        </ul>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+GENERA PDF ANALISI FINANZIARIA
+
+OBIETTIVO:
+Generare un report professionale in formato PDF dell'analisi finanziaria di SHAKAZAMBA srl.
+
+INPUT:
+- Script Python: examples/financialanalysis/create_pdf.py
+
+OUTPUT:
+- File PDF: examples/financialanalysis/shakazamba_financial_analysis.pdf
+
+AZIONI DA ESEGUIRE:
+1. Assicurati che lo script Python sia eseguibile:
+   chmod +x examples/financialanalysis/create_pdf.py
+
+2. Esegui lo script Python per generare il PDF:
+   /usr/bin/python3 examples/financialanalysis/create_pdf.py
+
+3. Verifica che il PDF sia stato generato correttamente
+
+CONTENUTO DEL REPORT:
+Il report PDF conterrà un'analisi finanziaria dettagliata di SHAKAZAMBA srl, includendo:
+- Informazioni base sull'azienda
+- Analisi fondamentale
+- Analisi dei bilanci
+- Redditività e performance
+- Punteggi da 1 a 10 per ogni parametro
+- Conclusioni e raccomandazioni
+
+FORMATTAZIONE DEL PDF:
+- Formato A4
+- Margini: 20mm su tutti i lati
+- Font: Helvetica
+- Colori professionali
+- Tabelle per una facile lettura
+- Layout pulito e organizzato

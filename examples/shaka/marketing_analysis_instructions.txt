@@ -1,0 +1,192 @@
+SHAKAZAMBA MARKETING ANALYSIS - ISTRUZIONI
+
+Location: /Users/federicopeluso/Repositories/OpenManus/examples/shaka/
+
+Analizza il sito web https://shakazamba.com e crea due file HTML con l'analisi nella directory /Users/federicopeluso/Repositories/OpenManus/examples/shaka/
+
+1. Crea un file HTML principale (examples/shaka/shakazamba_analysis.html) con:
+   - Titolo e data dell'analisi
+   - Sezione per l'analisi base del sito
+   - Sezione per l'analisi dei contenuti
+   - Sezione per l'analisi UX
+   - Sezione per le raccomandazioni
+
+2. Crea un file HTML per la versione mobile (examples/shaka/shakazamba_analysis_mobile.html) con:
+   - Stessa struttura del file principale
+   - Design ottimizzato per dispositivi mobili
+   - Menu di navigazione collassabile
+   - Font size adattivo
+
+Per ogni sezione:
+- Includi screenshot delle aree analizzate
+- Fornisci metriche specifiche
+- Elenca punti di forza e debolezza
+- Suggerisci miglioramenti concreti
+
+IMPORTANTE:
+- Crea i file HTML nella directory examples/shaka/
+- Usa CSS moderno e responsive
+- Includi commenti nel codice
+- Mantieni una struttura chiara e leggibile
+
+Analizza il sito web shakazamba.com e crea un report di marketing professionale che includa:
+
+1. ANALISI STRATEGICA
+- Valore Proposto Unico (UVP)
+- Posizionamento di mercato
+- Target audience principale e secondaria
+- Analisi SWOT completa
+- Benchmark con 3 competitor diretti
+
+2. ANALISI TECNICA
+- Performance SEO (keyword principali, meta tag, struttura URL)
+- Velocità di caricamento e ottimizzazione
+- Responsive design e user experience
+- Analisi del codice sorgente
+- Compatibilità cross-browser
+
+3. ANALISI CONTENUTI
+- Qualità e pertinenza dei contenuti
+- Strategia di content marketing
+- Call-to-action e conversion points
+- Social proof e testimonianze
+- Blog e risorse educative
+
+4. ANALISI CONVERSIONE
+- Funnel di conversione
+- Punti di abbandono
+- Form e landing page
+- Strategia di lead generation
+- Integrazione CRM
+
+5. RACCOMANDAZIONI PRIORITARIE
+Per ogni area, fornire:
+- Problema identificato
+- Impatto sul business
+- Soluzione proposta
+- Priorità (Alta/Media/Bassa)
+- Timeline di implementazione stimata
+
+6. METRICHE DI SUCCESSO
+- KPI da monitorare
+- Baseline attuale
+- Target da raggiungere
+- Periodo di misurazione
+
+7. PIANO D'AZIONE
+- Fase 1 (0-3 mesi)
+- Fase 2 (3-6 mesi)
+- Fase 3 (6-12 mesi)
+- Budget stimato per implementazione
+- ROI atteso
+
+8. CONCLUSIONI
+- Executive summary
+- Prossimi passi immediati
+- Rischi e opportunità
+- Timeline di revisione
+
+Il report deve essere professionale, data-driven e orientato all'azione. Includere screenshot, grafici e metriche specifiche dove possibile.
+
+FASE 1 - Analisi Base:
+1. Apri il sito https://shakazamba.com
+2. Verifica il titolo della pagina
+3. Verifica la meta description
+4. Verifica le immagini principali
+5. Verifica i link principali
+
+FASE 2 - Analisi Contenuti:
+1. Identifica il messaggio principale
+2. Identifica le call-to-action
+3. Verifica la presenza di testimonial
+4. Verifica la presenza di social proof
+
+FASE 3 - Analisi UX:
+1. Verifica la navigazione
+2. Verifica il responsive design
+3. Verifica i form di contatto
+4. Verifica la velocità di caricamento
+
+FASE 4 - Raccomandazioni:
+1. Elenca 3 punti di forza
+2. Elenca 3 aree di miglioramento
+3. Fornisci 3 suggerimenti prioritari
+
+IMPORTANTE:
+- Popola il template HTML con i risultati di ogni fase
+- Includi screenshot delle aree critiche
+- Fornisci metriche specifiche dove possibile
+- Mantieni le raccomandazioni concrete e attuabili
+
+1. ANALISI DEL SITO
+   - Navigare su https://shakazamba.com
+   - Esaminare l'esperienza utente completa della homepage
+   - Valutare la chiarezza del messaggio principale
+   - Analizzare la struttura della navigazione
+   - Esaminare tutti gli elementi di chiamata all'azione (CTA)
+   - Valutare la responsività del design su dispositivi mobili
+   - Analizzare l'estetica generale e la coerenza del brand
+
+2. PUNTI DA VALUTARE
+   - Prima impressione del sito (5 secondi iniziali)
+   - Proposta di valore (è chiara? è convincente?)
+   - Percorso del cliente (è intuitivo? ci sono ostacoli?)
+   - Elementi visivi (immagini, video, grafica)
+   - Contenuto testuale (tono, chiarezza, persuasione)
+   - Social proof (testimonianze, recensioni, casi studio)
+   - Performance tecnica (velocità di caricamento, eventuali errori)
+
+3. DELIVERABLE RICHIESTI
+   - Report dettagliato in formato HTML con analisi approfondita
+   - Versione sintetica in formato testo per revisione rapida
+   - Elenco di almeno 10 suggerimenti concreti e attuabili
+   - Prioritizzazione degli interventi (alto/medio/basso impatto)
+   - Stima dei tempi di implementazione per ogni suggerimento
+
+4. SUGGERIMENTI PER AREE SPECIFICHE
+   A. OTTIMIZZAZIONE SEO
+      - Analisi delle keyword principali utilizzate
+      - Valutazione dei meta tag e della struttura semantica
+      - Suggerimenti per migliorare la visibilità nei motori di ricerca
+
+   B. CONTENUTO E MESSAGGISTICA
+      - Valutazione dell'efficacia del copy
+      - Suggerimenti per migliorare la chiarezza del messaggio
+      - Idee per contenuti aggiuntivi che potrebbero attrarre nuovi clienti
+
+   C. CONVERSIONE
+      - Analisi del posizionamento e dell'efficacia delle CTA
+      - Suggerimenti per migliorare il tasso di conversione
+      - Idee per nuovi elementi di conversione
+
+   D. ENGAGEMENT E FIDELIZZAZIONE
+      - Valutazione delle strategie di engagement attuali
+      - Suggerimenti per incentivare il ritorno dei clienti
+      - Idee per programmi di referral o loyalty
+
+5. CONFRONTO CON CONCORRENTI
+   - Identificare 3-5 concorrenti principali nel settore
+   - Confrontare la loro strategia di marketing digitale
+   - Evidenziare opportunità di differenziazione
+
+6. STRATEGIE DI MARKETING OMNICANALE
+   - Suggerimenti per integrare il sito web con altri canali (social, email, offline)
+   - Idee per campagne di marketing coordinate su più piattaforme
+   - Proposte per sfruttare trend emergenti nel marketing digitale
+
+7. METRICHE DI SUCCESSO
+   - Definire le KPI chiave per monitorare i miglioramenti
+   - Suggerire strumenti per il monitoraggio delle performance
+   - Proporre una timeline per la revisione dei risultati
+
+FORMATO DELIVERABLE:
+- Il report principale deve includere screenshot commentati
+- I suggerimenti devono essere specifici, misurabili e implementabili
+- Ogni suggerimento deve includere: problema identificato, soluzione proposta, beneficio atteso
+- La prioritizzazione deve basarsi su impatto previsto vs sforzo di implementazione
+
+NOTA IMPORTANTE:
+Durante l'analisi, considera il sito dal punto di vista di diversi segmenti di pubblico (clienti nuovi vs esistenti, diversi dati demografici, ecc.) per garantire che i suggerimenti siano inclusivi e rilevanti per un'ampia gamma di potenziali clienti.
+
+SCADENZA:
+Analisi da completare entro 48 ore dalla ricezione di queste istruzioni.
