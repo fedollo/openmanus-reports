@@ -245,6 +245,39 @@ async def elimina_report(report_id: str):
     }
 
 
+@app.post("/crea-html-esempio/{report_id}")
+async def crea_html_esempio_endpoint(report_id: str):
+    """
+    Crea file HTML di esempio per un report esistente.
+
+    Args:
+        report_id: L'ID del report per cui creare i file HTML
+
+    Returns:
+        Stato di avanzamento del report
+    """
+    if report_id not in report_status:
+        raise HTTPException(
+            status_code=404, detail=f"Report con ID {report_id} non trovato"
+        )
+
+    stato = report_status[report_id]
+    cartella_report = Path(stato.cartella)
+
+    if not cartella_report.exists():
+        raise HTTPException(
+            status_code=404, detail=f"Cartella {cartella_report} non trovata"
+        )
+
+    # Estrai l'argomento dal report_id
+    argomento = report_id.split("_")[0]
+
+    # Crea i file HTML
+    await crea_html_esempio(report_id, str(cartella_report), argomento)
+
+    return report_status[report_id]
+
+
 def format_instructions(
     argomento: str,
     istruzioni: str,
