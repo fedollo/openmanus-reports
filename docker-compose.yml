@@ -7,9 +7,10 @@ services:
       - "8001:8000"
     volumes:
       - ./workspace:/app/workspace
+      - ./config:/app/config
     environment:
       - PYTHONUNBUFFERED=1
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
       - REPORT_DIR=/app/workspace
       - CMD_ALTERNATIVE=true
     restart: unless-stopped
