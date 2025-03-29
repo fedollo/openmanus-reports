@@ -55,7 +55,7 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Abilita CORS
+# Configura CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -64,8 +64,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configura la directory per i file statici
-app.mount("/files", StaticFiles(directory="workspace"), name="workspace")
+# Crea la cartella workspace se non esiste
+os.makedirs("workspace", exist_ok=True)
+logger.info(f"Workspace directory created/verified at: {os.path.abspath('workspace')}")
+
+# Monta la cartella workspace per servire i file statici
+app.mount("/files", StaticFiles(directory="workspace"), name="files")
+logger.info("Static files directory mounted at /files")
 
 
 @app.get("/")
@@ -293,6 +298,10 @@ async def genera_report_in_background(
     parametri_addizionali: Optional[Dict[str, Any]] = None,
 ):
     try:
+        logger.info(f"Received report request for topic: {argomento}")
+        logger.info(f"Current working directory: {os.getcwd()}")
+        logger.info(f"Workspace directory: {os.path.abspath('workspace')}")
+
         # Crea la cartella specifica per questo report
         report_dir = os.path.join(cartella_report, report_id)
         os.makedirs(report_dir, exist_ok=True)
