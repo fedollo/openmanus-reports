@@ -289,24 +289,50 @@ async def view_file(file_path: str):
     Returns:
         Contenuto del file
     """
+    logger.info(f"Richiesto file: {file_path}")
     file_full_path = os.path.join("workspace", file_path)
+    logger.info(f"Percorso completo: {file_full_path}")
+    logger.info(f"Percorso assoluto: {os.path.abspath(file_full_path)}")
+
     if not os.path.exists(file_full_path):
+        logger.error(f"File non trovato: {file_full_path}")
+        # Elenco file disponibili
+        try:
+            files = os.listdir("workspace")
+            logger.info(f"File disponibili in workspace: {files}")
+        except Exception as e:
+            logger.error(f"Errore nell'elencare i file: {e}")
         raise HTTPException(status_code=404, detail=f"File {file_path} non trovato")
+
+    logger.info(f"File trovato: {file_full_path}")
 
     if file_path.endswith(".html"):
         # Leggi il file HTML
-        async with aiofiles.open(file_full_path, "r") as f:
-            content = await f.read()
+        try:
+            async with aiofiles.open(file_full_path, "r") as f:
+                content = await f.read()
+            logger.info(f"Letto file HTML: {len(content)} caratteri")
 
-        # Restituisci il contenuto come HTML
-        from fastapi.responses import HTMLResponse
+            # Restituisci il contenuto come HTML
+            from fastapi.responses import HTMLResponse
 
-        return HTMLResponse(content=content)
+            return HTMLResponse(content=content)
+        except Exception as e:
+            logger.error(f"Errore nella lettura del file HTML: {e}")
+            raise HTTPException(
+                status_code=500, detail=f"Errore nella lettura del file: {str(e)}"
+            )
     else:
         # Restituisci il file come download
-        from fastapi.responses import FileResponse
+        try:
+            from fastapi.responses import FileResponse
 
-        return FileResponse(file_full_path)
+            return FileResponse(file_full_path)
+        except Exception as e:
+            logger.error(f"Errore nel download del file: {e}")
+            raise HTTPException(
+                status_code=500, detail=f"Errore nel download del file: {str(e)}"
+            )
 
 
 def format_instructions(
