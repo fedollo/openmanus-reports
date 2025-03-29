@@ -297,33 +297,30 @@ async def genera_report_in_background(
     argomento: str,
     istruzioni: str,
     parametri_addizionali: Optional[Dict[str, Any]] = None,
-):
+) -> None:
+    """
+    Genera un report in background.
+
+    Args:
+        report_id: ID univoco del report
+        cartella_report: Percorso della cartella in cui salvare il report
+        argomento: Argomento del report
+        istruzioni: Istruzioni per la generazione
+        parametri_addizionali: Parametri aggiuntivi per la generazione
+    """
     try:
-        logger.info(f"Received report request for topic: {argomento}")
-        logger.info(f"Current working directory: {os.getcwd()}")
-        logger.info(f"Workspace directory: {os.path.abspath('workspace')}")
-
-        # Crea la cartella specifica per questo report
-        report_dir = os.path.join(cartella_report, report_id)
-        os.makedirs(report_dir, exist_ok=True)
-        logger.info(f"Cartella report creata: {report_dir}")
-
-        # Aggiorna lo stato
+        logger.info(f"Avvio generazione report {report_id}")
         report_status[report_id].stato = "in_elaborazione"
-        report_status[report_id].percentuale_completamento = 10
-        logger.info(f"Inizio generazione report {report_id}")
 
-        # Crea il file di istruzioni.txt
-        istruzioni_file = os.path.join(report_dir, "istruzioni.txt")
+        # Salva le istruzioni in un file di testo
+        istruzioni_file = os.path.join(cartella_report, "istruzioni.txt")
         async with aiofiles.open(istruzioni_file, "w") as f:
-            await f.write(
-                f"# Istruzioni per la generazione di report su {argomento}\n\n"
-            )
-            await f.write(f"{istruzioni}\n\n")
+            await f.write(f"Argomento: {argomento}\n\n")
+            await f.write(f"Istruzioni: {istruzioni}\n\n")
             if parametri_addizionali:
-                await f.write("## Parametri addizionali:\n")
-                for key, value in parametri_addizionali.items():
-                    await f.write(f"- {key}: {value}\n")
+                await f.write("Parametri addizionali:\n")
+                for k, v in parametri_addizionali.items():
+                    await f.write(f"- {k}: {v}\n")
 
         logger.info("File istruzioni.txt creato")
         report_status[report_id].file_generati.append("istruzioni.txt")
