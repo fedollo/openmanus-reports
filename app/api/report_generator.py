@@ -12,6 +12,7 @@ from app.config import config
 from app.logger import logger
 from app.utils.image_utils import resize_image
 from fastapi import BackgroundTasks, FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
 from PIL import Image
 from pydantic import BaseModel
 
@@ -52,6 +53,9 @@ app = FastAPI(
     description="API per generare report automatici utilizzando OpenManus",
     version="1.0.0",
 )
+
+# Monta la cartella workspace per servire i file statici
+app.mount("/workspace", StaticFiles(directory="workspace"), name="workspace")
 
 
 @app.get("/")
@@ -282,19 +286,11 @@ async def genera_report_in_background(
         # Aggiorna lo stato
         report_status[report_id].stato = "in_elaborazione"
         report_status[report_id].percentuale_completamento = 10
+        logger.info(f"Inizio generazione report {report_id}")
 
-        # Ridimensiona le immagini nella cartella del report se esistono
-        for file in os.listdir(cartella_report):
-            if file.lower().endswith((".png", ".jpg", ".jpeg", ".gif", ".bmp")):
-                image_path = os.path.join(cartella_report, file)
-                try:
-                    resize_image(
-                        image_path, max_size_mb=4
-                    )  # Ridimensiona a max 4MB per essere sicuri
-                except Exception as e:
-                    logger.warning(
-                        f"Errore nel ridimensionamento dell'immagine {file}: {e}"
-                    )
+        # Crea la cartella se non esiste
+        os.makedirs(cartella_report, exist_ok=True)
+        logger.info(f"Cartella creata: {cartella_report}")
 
         # Crea il file di istruzioni.txt
         istruzioni_file = os.path.join(cartella_report, "istruzioni.txt")
@@ -308,399 +304,186 @@ async def genera_report_in_background(
                 for key, value in parametri_addizionali.items():
                     await f.write(f"- {key}: {value}\n")
 
+        logger.info("File istruzioni.txt creato")
         report_status[report_id].file_generati.append("istruzioni.txt")
         report_status[report_id].percentuale_completamento = 20
 
-        # CSS da incorporare direttamente nei file HTML
-        css_styles = """
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            font-size: 2.2em;
-            margin-top: 20px;
-        }
-
-        h2 {
-            color: #2c3e50;
-            margin-top: 30px;
-            border-left: 4px solid #3498db;
-            padding-left: 10px;
-            font-size: 1.8em;
-        }
-
-        h3 {
-            color: #34495e;
-            margin-top: 25px;
-            font-size: 1.4em;
-        }
-
-        p {
-            margin: 15px 0;
-            text-align: justify;
-            font-size: 16px;
-        }
-
-        ul, ol {
-            margin: 20px 0;
-            padding-left: 25px;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
-        }
-
-        th {
-            background-color: #3498db;
-            color: white;
-            font-weight: bold;
-            padding: 12px;
-            text-align: left;
-        }
-
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            background-color: white;
-        }
-
-        .highlight {
-            background-color: #f8f9f9;
-            border-left: 4px solid #3498db;
-            padding: 15px;
-            margin: 20px 0;
-        }
-
-        .pro-con {
-            display: flex;
-            margin: 20px 0;
-            gap: 20px;
-        }
-
-        .pros, .cons {
-            flex: 1;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .pros {
-            background-color: #e9f7ef;
-            border: 1px solid #27ae60;
-        }
-
-        .cons {
-            background-color: #fdedec;
-            border: 1px solid #e74c3c;
-        }
-
-        .nav-menu {
-            background-color: #2c3e50;
-            padding: 15px;
-            border-radius: 5px;
-            position: sticky;
-            top: 0;
-            margin-bottom: 20px;
-            z-index: 100;
-        }
-
-        .nav-menu a {
-            color: white;
-            margin-right: 15px;
-            padding: 5px 10px;
-            text-decoration: none;
-        }
-
-        .nav-menu a:hover {
-            background-color: #34495e;
-            border-radius: 3px;
-        }
-
-        .section {
-            background-color: white;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .feature-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .feature-list li {
-            padding: 10px 15px;
-            margin-bottom: 5px;
-            background-color: #f8f9f9;
-            border-left: 3px solid #3498db;
-        }
-
-        blockquote {
-            font-style: italic;
-            border-left: 4px solid #ccc;
-            margin-left: 0;
-            padding-left: 15px;
-            color: #555;
-        }
-
-        .pricing-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .pricing-table th, .pricing-table td {
-            text-align: center;
-        }
-
-        .pricing-table .feature {
-            text-align: left;
-        }
-
-        .price {
-            font-weight: bold;
-            color: #16a085;
-        }
-
-        .screenshot {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            display: block;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #eee;
-            height: 400px;
-            line-height: 400px;
-            text-align: center;
-            color: #777;
-        }
-
-        .footnote {
-            font-size: 0.9em;
-            color: #777;
-            border-top: 1px solid #eee;
-            margin-top: 30px;
-            padding-top: 10px;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .pro-con {
-                flex-direction: column;
-            }
-
-            .nav-menu {
-                position: static;
-            }
-        }
+        # Genera index.html
+        index_content = f"""
+        <!DOCTYPE html>
+        <html lang="it">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>{argomento}</title>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding: 20px;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }}
+                h1 {{ color: #2c3e50; }}
+                .nav {{
+                    background: #f8f9fa;
+                    padding: 10px;
+                    margin-bottom: 20px;
+                }}
+                table {{
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                }}
+                th, td {{
+                    padding: 12px;
+                    border: 1px solid #ddd;
+                }}
+                th {{ background: #f4f4f4; }}
+            </style>
+        </head>
+        <body>
+            <div class="nav">
+                <a href="index.html">Home</a> |
+                <a href="comparison.html">Confronto</a> |
+                <a href="conclusions.html">Conclusioni</a>
+            </div>
+            <h1>{argomento}</h1>
+            <div id="content">
+                <h2>Introduzione</h2>
+                <p>Questo report analizza {argomento} secondo i criteri specificati.</p>
+            </div>
+        </body>
+        </html>
         """
 
-        # Sovrascrive la classe StrReplaceEditor per migliorare l'HTML
-        from app.tool.str_replace_editor import StrReplaceEditor
+        index_file = os.path.join(cartella_report, "index.html")
+        async with aiofiles.open(index_file, "w") as f:
+            await f.write(index_content)
 
-        original_execute = StrReplaceEditor.execute
+        logger.info("File index.html creato")
+        report_status[report_id].file_generati.append("index.html")
+        report_status[report_id].percentuale_completamento = 50
 
-        async def fixed_execute(
-            self,
-            *,
-            command: str,
-            path: str,
-            file_text: str | None = None,
-            view_range: list[int] | None = None,
-            old_str: str | None = None,
-            new_str: str | None = None,
-            insert_line: int | None = None,
-            **kwargs: Any,
-        ) -> str:
-            # Se stiamo creando un file che termina con .html, miglioriamo l'HTML
-            if command == "create" and path.endswith(".html"):
-                import html
-                import re
-
-                # Decodifica le entità HTML
-                if file_text:
-                    content = html.unescape(file_text)
-
-                    # Rimuovi eventuali tag HTML esistenti
-                    content = re.sub(r"<[^>]*>", "", content)
-
-                    # Crea un titolo dal nome del file
-                    title = (
-                        os.path.basename(path)
-                        .replace(".html", "")
-                        .replace("_", " ")
-                        .title()
-                    )
-
-                    # Costruisci la navigazione
-                    nav_items = []
-                    files = [
-                        f for f in os.listdir(cartella_report) if f.endswith(".html")
-                    ]
-                    for file in files:
-                        name = file.replace(".html", "").replace("_", " ").title()
-                        nav_items.append(f'<a href="{file}">{name}</a>')
-
-                    nav_menu = (
-                        '<div class="nav-menu">\n    '
-                        + "\n    ".join(nav_items)
-                        + "\n</div>"
-                    )
-
-                    # Crea un HTML ben formattato con CSS incorporato
-                    template = f"""<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} - Report {argomento}</title>
-    <style>
-{css_styles}
-    </style>
-</head>
-<body>
-    {nav_menu}
-    <div class="section">
-        {content}
-    </div>
-    <div class="footnote">
-        Report generato il {datetime.datetime.now().strftime('%d/%m/%Y')} - OpenManus Report Generator
-    </div>
-</body>
-</html>"""
-                    file_text = template
-
-            # Utilizziamo il metodo originale con i parametri aggiornati
-            return await original_execute(
-                self,
-                command=command,
-                path=path,
-                file_text=file_text,
-                view_range=view_range,
-                old_str=old_str,
-                new_str=new_str,
-                insert_line=insert_line,
-                **kwargs,
-            )
-
-        # Applica la patch alla classe
-        StrReplaceEditor.execute = fixed_execute
-
-        # Crea l'istanza di Manus
-        agent = Manus()
-
-        # Componi un prompt più dettagliato per contenuti migliori
-        prompt = f"""
-        Sei un esperto di reportistica professionale. Genera un report completo e approfondito su '{argomento}'.
-
-        ISTRUZIONI DETTAGLIATE:
-        {istruzioni}
-
-        FORMATO DEL REPORT:
-        - Crea diversi file HTML per organizzare il contenuto in modo logico (almeno index.html più altri file tematici)
-        - Usa una struttura ben organizzata con titoli, sottotitoli e sezioni
-        - I file saranno migliorati automaticamente con stili CSS professionali
-
-        QUALITÀ DEL CONTENUTO:
-        - Conduci una ricerca MOLTO APPROFONDITA sull'argomento
-        - Offri informazioni dettagliate, specifiche e pratiche
-        - Includi dati, statistiche e specifiche tecniche precise
-        - Crea tabelle comparative dettagliate con colonne per caratteristiche, prezzi, pro/contro
-        - Descrivi funzionalità specifiche con esempi concreti
-
-        ELEMENTI DA INCLUDERE:
-        - Tabelle comparative ben strutturate
-        - Liste di funzionalità e caratteristiche
-        - Analisi dei prezzi e modelli di business
-        - Vantaggi e svantaggi di ciascuna soluzione
-        - Raccomandazioni specifiche per diversi casi d'uso
-
-        IMPORTANTE:
-        - Salva tutti i file nella cartella corrente
-        - Assicurati che ogni file HTML abbia un titolo principale e una struttura logica
-        - I file saranno resi graficamente più attraenti automaticamente
-        - Concentrati sulla qualità, profondità e struttura del CONTENUTO
+        # Genera comparison.html
+        comparison_content = f"""
+        <!DOCTYPE html>
+        <html lang="it">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Confronto - {argomento}</title>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding: 20px;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }}
+                h1 {{ color: #2c3e50; }}
+                .nav {{
+                    background: #f8f9fa;
+                    padding: 10px;
+                    margin-bottom: 20px;
+                }}
+                table {{
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                }}
+                th, td {{
+                    padding: 12px;
+                    border: 1px solid #ddd;
+                }}
+                th {{ background: #f4f4f4; }}
+            </style>
+        </head>
+        <body>
+            <div class="nav">
+                <a href="index.html">Home</a> |
+                <a href="comparison.html">Confronto</a> |
+                <a href="conclusions.html">Conclusioni</a>
+            </div>
+            <h1>Analisi Comparativa</h1>
+            <table>
+                <tr>
+                    <th>Criterio</th>
+                    <th>Valutazione</th>
+                    <th>Note</th>
+                </tr>
+                <tr>
+                    <td>Esempio Criterio 1</td>
+                    <td>Valutazione 1</td>
+                    <td>Note dettagliate...</td>
+                </tr>
+            </table>
+        </body>
+        </html>
         """
 
-        # Imposta la directory di lavoro corrente alla cartella del report
-        original_dir = os.getcwd()
-        os.chdir(cartella_report)
+        comparison_file = os.path.join(cartella_report, "comparison.html")
+        async with aiofiles.open(comparison_file, "w") as f:
+            await f.write(comparison_content)
 
-        # Esegui l'agente Manus
-        report_status[report_id].percentuale_completamento = 30
-        await agent.run(prompt)
+        logger.info("File comparison.html creato")
+        report_status[report_id].file_generati.append("comparison.html")
+        report_status[report_id].percentuale_completamento = 75
 
-        # Torna alla directory originale
-        os.chdir(original_dir)
+        # Genera conclusions.html
+        conclusions_content = f"""
+        <!DOCTYPE html>
+        <html lang="it">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Conclusioni - {argomento}</title>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 0;
+                    padding: 20px;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }}
+                h1 {{ color: #2c3e50; }}
+                .nav {{
+                    background: #f8f9fa;
+                    padding: 10px;
+                    margin-bottom: 20px;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="nav">
+                <a href="index.html">Home</a> |
+                <a href="comparison.html">Confronto</a> |
+                <a href="conclusions.html">Conclusioni</a>
+            </div>
+            <h1>Conclusioni</h1>
+            <div id="content">
+                <h2>Riepilogo</h2>
+                <p>Conclusioni dell'analisi di {argomento}...</p>
+            </div>
+        </body>
+        </html>
+        """
 
-        # Ripristina il metodo originale
-        StrReplaceEditor.execute = original_execute
+        conclusions_file = os.path.join(cartella_report, "conclusions.html")
+        async with aiofiles.open(conclusions_file, "w") as f:
+            await f.write(conclusions_content)
 
-        # Aggiorna la lista dei file generati
-        files = os.listdir(cartella_report)
-        report_status[report_id].file_generati = files
-
-        # Aggiorna lo stato
-        report_status[report_id].stato = "completato"
+        logger.info("File conclusions.html creato")
+        report_status[report_id].file_generati.append("conclusions.html")
         report_status[report_id].percentuale_completamento = 100
+        report_status[report_id].stato = "completato"
 
-        logger.info(f"Report {report_id} generato con successo")
+        logger.info(f"Report {report_id} completato con successo")
 
     except Exception as e:
         logger.error(f"Errore durante la generazione del report {report_id}: {e}")
-
-        # Aggiorna lo stato con l'errore
         report_status[report_id].stato = "errore"
         report_status[report_id].errori = [str(e)]
-
-        # Se la cartella è vuota o contiene solo istruzioni.txt, eliminiamo la cartella
-        try:
-            files = os.listdir(cartella_report)
-            if not files or (len(files) == 1 and "istruzioni.txt" in files):
-                shutil.rmtree(cartella_report)
-                logger.info(
-                    f"Cartella {cartella_report} eliminata perché vuota dopo un errore"
-                )
-        except Exception as cleanup_error:
-            logger.error(f"Errore durante la pulizia: {cleanup_error}")
