@@ -127,7 +127,7 @@ async def genera_report(request: ReportRequest, background_tasks: BackgroundTask
 
     # Crea la cartella per il report
     cartella_report = os.path.join(
-        config.workspace_root, argomento_sicuro.replace(" ", "_").lower()
+        "workspace", argomento_sicuro.replace(" ", "_").lower()
     )
 
     # Verifica se la cartella esiste già
@@ -140,6 +140,7 @@ async def genera_report(request: ReportRequest, background_tasks: BackgroundTask
         report_id = f"{report_id}_{i}"
 
     os.makedirs(cartella_report, exist_ok=True)
+    logger.info(f"Cartella report creata: {cartella_report}")
 
     # Inizializza lo stato del report
     report_status[report_id] = ReportStatus(
