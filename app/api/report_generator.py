@@ -278,6 +278,37 @@ async def crea_html_esempio_endpoint(report_id: str):
     return report_status[report_id]
 
 
+@app.get("/view-file/{file_path:path}")
+async def view_file(file_path: str):
+    """
+    Visualizza un file dalla directory workspace.
+
+    Args:
+        file_path: Percorso relativo del file all'interno della directory workspace
+
+    Returns:
+        Contenuto del file
+    """
+    file_full_path = os.path.join("workspace", file_path)
+    if not os.path.exists(file_full_path):
+        raise HTTPException(status_code=404, detail=f"File {file_path} non trovato")
+
+    if file_path.endswith(".html"):
+        # Leggi il file HTML
+        async with aiofiles.open(file_full_path, "r") as f:
+            content = await f.read()
+
+        # Restituisci il contenuto come HTML
+        from fastapi.responses import HTMLResponse
+
+        return HTMLResponse(content=content)
+    else:
+        # Restituisci il file come download
+        from fastapi.responses import FileResponse
+
+        return FileResponse(file_full_path)
+
+
 def format_instructions(
     argomento: str,
     istruzioni: str,
