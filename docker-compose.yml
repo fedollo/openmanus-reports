@@ -9,6 +9,8 @@ services:
       - ./workspace:/app/workspace
     environment:
       - PYTHONUNBUFFERED=1
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - REPORT_DIR=/app/workspace
     restart: unless-stopped
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8001/docs" ]
