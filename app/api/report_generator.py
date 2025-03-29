@@ -69,8 +69,8 @@ os.makedirs("workspace", exist_ok=True)
 logger.info(f"Workspace directory created/verified at: {os.path.abspath('workspace')}")
 
 # Monta la cartella workspace per servire i file statici
-app.mount("/files", StaticFiles(directory="workspace"), name="files")
-logger.info("Static files directory mounted at /files")
+app.mount("/workspace", StaticFiles(directory="workspace"), name="workspace")
+logger.info("Static files directory mounted at /workspace")
 
 
 @app.get("/")
@@ -379,7 +379,7 @@ async def genera_report_in_background(
         </html>
         """
 
-        index_file = os.path.join(report_dir, "index.html")
+        index_file = os.path.join(cartella_report, "index.html")
         async with aiofiles.open(index_file, "w") as f:
             await f.write(index_content)
 
@@ -445,7 +445,7 @@ async def genera_report_in_background(
         </html>
         """
 
-        comparison_file = os.path.join(report_dir, "comparison.html")
+        comparison_file = os.path.join(cartella_report, "comparison.html")
         async with aiofiles.open(comparison_file, "w") as f:
             await f.write(comparison_content)
 
@@ -493,7 +493,7 @@ async def genera_report_in_background(
         </html>
         """
 
-        conclusions_file = os.path.join(report_dir, "conclusions.html")
+        conclusions_file = os.path.join(cartella_report, "conclusions.html")
         async with aiofiles.open(conclusions_file, "w") as f:
             await f.write(conclusions_content)
 
