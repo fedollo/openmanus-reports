@@ -12,6 +12,7 @@ from app.config import config
 from app.logger import logger
 from app.utils.image_utils import resize_image
 from fastapi import BackgroundTasks, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from PIL import Image
 from pydantic import BaseModel
@@ -50,12 +51,21 @@ report_status: Dict[str, ReportStatus] = {}
 
 app = FastAPI(
     title="OpenManus Report Generator",
-    description="API per generare report automatici utilizzando OpenManus",
+    description="API per la generazione di report professionali",
     version="1.0.0",
 )
 
-# Monta la cartella workspace per servire i file statici
-app.mount("/workspace", StaticFiles(directory="workspace"), name="workspace")
+# Abilita CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Configura la directory per i file statici
+app.mount("/files", StaticFiles(directory="workspace"), name="workspace")
 
 
 @app.get("/")
@@ -283,17 +293,18 @@ async def genera_report_in_background(
     parametri_addizionali: Optional[Dict[str, Any]] = None,
 ):
     try:
+        # Crea la cartella specifica per questo report
+        report_dir = os.path.join(cartella_report, report_id)
+        os.makedirs(report_dir, exist_ok=True)
+        logger.info(f"Cartella report creata: {report_dir}")
+
         # Aggiorna lo stato
         report_status[report_id].stato = "in_elaborazione"
         report_status[report_id].percentuale_completamento = 10
         logger.info(f"Inizio generazione report {report_id}")
 
-        # Crea la cartella se non esiste
-        os.makedirs(cartella_report, exist_ok=True)
-        logger.info(f"Cartella creata: {cartella_report}")
-
         # Crea il file di istruzioni.txt
-        istruzioni_file = os.path.join(cartella_report, "istruzioni.txt")
+        istruzioni_file = os.path.join(report_dir, "istruzioni.txt")
         async with aiofiles.open(istruzioni_file, "w") as f:
             await f.write(
                 f"# Istruzioni per la generazione di report su {argomento}\n\n"
@@ -358,7 +369,7 @@ async def genera_report_in_background(
         </html>
         """
 
-        index_file = os.path.join(cartella_report, "index.html")
+        index_file = os.path.join(report_dir, "index.html")
         async with aiofiles.open(index_file, "w") as f:
             await f.write(index_content)
 
@@ -424,7 +435,7 @@ async def genera_report_in_background(
         </html>
         """
 
-        comparison_file = os.path.join(cartella_report, "comparison.html")
+        comparison_file = os.path.join(report_dir, "comparison.html")
         async with aiofiles.open(comparison_file, "w") as f:
             await f.write(comparison_content)
 
@@ -472,7 +483,7 @@ async def genera_report_in_background(
         </html>
         """
 
-        conclusions_file = os.path.join(cartella_report, "conclusions.html")
+        conclusions_file = os.path.join(report_dir, "conclusions.html")
         async with aiofiles.open(conclusions_file, "w") as f:
             await f.write(conclusions_content)
 
