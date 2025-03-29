@@ -617,7 +617,11 @@ async def generate_report(request: ReportRequest, background_tasks: BackgroundTa
         request.parametri_addizionali,
     )
 
-    return {"report_id": report_id, "stato": "in_attesa"}
+    # Crea il link per controllare lo stato del report
+    base_url = os.environ.get("BASE_URL", "http://152.42.131.39:8001")
+    status_url = f"{base_url}/status/{report_id}"
+
+    return {"report_id": report_id, "stato": "in_attesa", "status_url": status_url}
 
 
 @app.get("/status/{report_id}")
@@ -627,11 +631,27 @@ async def get_report_status(report_id: str):
         raise HTTPException(status_code=404, detail="Report non trovato")
 
     status = report_status[report_id]
+
+    # Genera URL per ogni file HTML generato
+    report_links = []
+    base_url = os.environ.get("BASE_URL", "http://152.42.131.39:8001")
+
+    for file in status.file_generati:
+        if file.endswith(".html"):
+            file_url = f"{base_url}/files/{report_id}/{file}"
+            report_links.append(
+                {
+                    "nome": file.replace(".html", "").replace("_", " ").title(),
+                    "url": file_url,
+                }
+            )
+
     return {
         "report_id": report_id,
         "stato": status.stato,
         "percentuale_completamento": status.percentuale_completamento,
         "file_generati": status.file_generati,
+        "report_links": report_links,
         "errori": status.errori,
     }
 
@@ -675,6 +695,37 @@ async def delete_report(report_id: str):
     del report_status[report_id]
 
     return {"report_id": report_id, "stato": "eliminato"}
+
+
+@app.get("/links/{report_id}")
+async def get_report_links(report_id: str):
+    """Endpoint per ottenere i link ai file del report generato."""
+    if report_id not in report_status:
+        raise HTTPException(status_code=404, detail="Report non trovato")
+
+    status = report_status[report_id]
+
+    # Genera URL per ogni file HTML generato
+    report_links = []
+    base_url = os.environ.get("BASE_URL", "http://152.42.131.39:8001")
+
+    for file in status.file_generati:
+        if file.endswith(".html"):
+            file_url = f"{base_url}/files/{report_id}/{file}"
+            report_links.append(
+                {
+                    "nome": file.replace(".html", "").replace("_", " ").title(),
+                    "url": file_url,
+                }
+            )
+
+    return {
+        "report_id": report_id,
+        "stato": status.stato,
+        "titolo": f"Report su {report_id.replace('report_', '')}",
+        "links": report_links,
+        "completato": status.stato == "completato",
+    }
 
 
 # Monta la directory dei file statici
