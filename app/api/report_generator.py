@@ -329,6 +329,26 @@ async def genera_report_in_background(
         report_status[report_id].file_generati.append("istruzioni.txt")
         report_status[report_id].percentuale_completamento = 20
 
+        # Crea il file HTML di esempio
+        await crea_html_esempio(report_id, cartella_report, argomento)
+
+        logger.info(f"Report {report_id} completato con successo")
+
+    except Exception as e:
+        logger.error(f"Errore durante la generazione del report {report_id}: {e}")
+        report_status[report_id].stato = "errore"
+        report_status[report_id].errori = [str(e)]
+
+
+# Crea il file HTML di esempio
+async def crea_html_esempio(
+    report_id: str, cartella_report: str, argomento: str
+) -> None:
+    try:
+        logger.info(
+            f"Creazione file HTML di esempio per {report_id} in {cartella_report}"
+        )
+
         # Genera index.html
         index_content = f"""
         <!DOCTYPE html>
@@ -380,10 +400,11 @@ async def genera_report_in_background(
         """
 
         index_file = os.path.join(cartella_report, "index.html")
+        logger.info(f"Creazione file index.html in {index_file}")
         async with aiofiles.open(index_file, "w") as f:
             await f.write(index_content)
 
-        logger.info("File index.html creato")
+        logger.info(f"File index.html creato in {index_file}")
         report_status[report_id].file_generati.append("index.html")
         report_status[report_id].percentuale_completamento = 50
 
@@ -446,10 +467,11 @@ async def genera_report_in_background(
         """
 
         comparison_file = os.path.join(cartella_report, "comparison.html")
+        logger.info(f"Creazione file comparison.html in {comparison_file}")
         async with aiofiles.open(comparison_file, "w") as f:
             await f.write(comparison_content)
 
-        logger.info("File comparison.html creato")
+        logger.info(f"File comparison.html creato in {comparison_file}")
         report_status[report_id].file_generati.append("comparison.html")
         report_status[report_id].percentuale_completamento = 75
 
@@ -494,17 +516,24 @@ async def genera_report_in_background(
         """
 
         conclusions_file = os.path.join(cartella_report, "conclusions.html")
+        logger.info(f"Creazione file conclusions.html in {conclusions_file}")
         async with aiofiles.open(conclusions_file, "w") as f:
             await f.write(conclusions_content)
 
-        logger.info("File conclusions.html creato")
+        logger.info(f"File conclusions.html creato in {conclusions_file}")
         report_status[report_id].file_generati.append("conclusions.html")
         report_status[report_id].percentuale_completamento = 100
         report_status[report_id].stato = "completato"
 
-        logger.info(f"Report {report_id} completato con successo")
+        # Verifica che i file esistano
+        for file_name in ["index.html", "comparison.html", "conclusions.html"]:
+            file_path = os.path.join(cartella_report, file_name)
+            if os.path.exists(file_path):
+                logger.info(f"Verificato: Il file {file_name} esiste in {file_path}")
+            else:
+                logger.error(f"ERRORE: Il file {file_name} NON esiste in {file_path}")
 
     except Exception as e:
-        logger.error(f"Errore durante la generazione del report {report_id}: {e}")
+        logger.error(f"Errore nella creazione dei file HTML: {str(e)}")
         report_status[report_id].stato = "errore"
         report_status[report_id].errori = [str(e)]
