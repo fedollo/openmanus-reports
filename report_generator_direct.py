@@ -111,6 +111,55 @@ async def html_content_to_file(
     content = html.unescape(content)
     content = re.sub(r"<[^>]*>", "", content)
 
+    # Aggiungi struttura ai contenuti con analisi delle sezioni
+    content_sections = []
+    lines = content.split("\n")
+    current_section = ""
+    current_title = ""
+
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+
+        # Identifica i titoli di sezione (righe più corte e non terminanti con punto)
+        if (
+            len(line) < 60
+            and not line.endswith(".")
+            and not line.endswith("?")
+            and not line.endswith("!")
+        ):
+            if current_section:
+                content_sections.append((current_title, current_section))
+                current_section = ""
+            current_title = line
+        else:
+            if current_title and not current_section:
+                current_section = line
+            else:
+                current_section += "\n<p>" + line + "</p>"
+
+    # Aggiungi l'ultima sezione
+    if current_section:
+        content_sections.append((current_title, current_section))
+
+    # Formatta i contenuti in HTML strutturato
+    formatted_content = ""
+    for i, (section_title, section_content) in enumerate(content_sections):
+        section_id = f"section-{i+1}"
+        formatted_content += f"""
+        <div class="content-section" id="{section_id}">
+            <h2>{section_title}</h2>
+            <div class="section-content">
+                {section_content}
+            </div>
+        </div>
+        """
+
+    # Se non ci sono sezioni, usa il contenuto originale
+    if not content_sections:
+        formatted_content = f"<div class='content-section'><div class='section-content'>{content}</div></div>"
+
     # Costruisci la navigazione
     nav_items = []
     files = [f for f in os.listdir(cartella_report) if f.endswith(".html")]
@@ -119,6 +168,23 @@ async def html_content_to_file(
         nav_items.append(f'<a href="{file}">{name}</a>')
 
     nav_menu = '<div class="nav-menu">\n    ' + "\n    ".join(nav_items) + "\n</div>"
+
+    # Costruisci la navigazione interna
+    toc_items = []
+    for i, (section_title, _) in enumerate(content_sections):
+        section_id = f"section-{i+1}"
+        toc_items.append(f'<li><a href="#{section_id}">{section_title}</a></li>')
+
+    table_of_contents = ""
+    if toc_items:
+        table_of_contents = f"""
+        <div class="table-of-contents">
+            <h3>Indice dei contenuti</h3>
+            <ul>
+                {"".join(toc_items)}
+            </ul>
+        </div>
+        """
 
     # Crea un HTML ben formattato con CSS incorporato
     template = f"""<!DOCTYPE html>
@@ -132,14 +198,46 @@ async def html_content_to_file(
     </style>
 </head>
 <body>
+    <header>
+        <div class="header-content">
+            <h1>{argomento}</h1>
+            <p class="report-subtitle">{title}</p>
+        </div>
+    </header>
+
     {nav_menu}
-    <div class="section">
-        <h1>{title}</h1>
-        {content}
+
+    <div class="main-container">
+        <div class="report-content">
+            {table_of_contents}
+            {formatted_content}
+        </div>
     </div>
+
     <div class="footnote">
         Report generato il {datetime.datetime.now().strftime('%d/%m/%Y')} - OpenManus Report Generator
     </div>
+
+    <script>
+        // Script per abilitare il toggle delle sezioni
+        document.addEventListener('DOMContentLoaded', function() {{
+            const sections = document.querySelectorAll('.content-section h2');
+            sections.forEach(section => {{
+                section.addEventListener('click', function() {{
+                    this.parentElement.classList.toggle('collapsed');
+                }});
+            }});
+
+            // Evidenzia la voce di menu attiva
+            const currentPage = window.location.pathname.split('/').pop();
+            const menuItems = document.querySelectorAll('.nav-menu a');
+            menuItems.forEach(item => {{
+                if (item.getAttribute('href') === currentPage) {{
+                    item.classList.add('active');
+                }}
+            }});
+        }});
+    </script>
 </body>
 </html>"""
 
@@ -221,55 +319,173 @@ async def genera_report_in_background(
 
         # CSS da incorporare direttamente nei file HTML
         css_styles = """
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #f9f9f9;
+            --content-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #dddddd;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .header-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin: 0;
+            padding: 0;
+            color: white;
+            border: none;
+        }
+
+        .report-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .main-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
+            padding: 2rem;
         }
 
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            font-size: 2.2em;
-            margin-top: 20px;
+        .report-content {
+            background-color: var(--content-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
         }
 
-        h2 {
-            color: #2c3e50;
-            margin-top: 30px;
-            border-left: 4px solid #3498db;
-            padding-left: 10px;
-            font-size: 1.8em;
+        .table-of-contents {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        .table-of-contents h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+        }
+
+        .table-of-contents ul {
+            margin: 1rem 0 0 1.5rem;
+        }
+
+        .table-of-contents a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            display: block;
+            padding: 0.3rem 0;
+            transition: all 0.2s ease;
+        }
+
+        .table-of-contents a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .content-section {
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .content-section:last-child {
+            border-bottom: none;
+        }
+
+        .content-section h2 {
+            color: var(--secondary-color);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-section h2:after {
+            content: "−";
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .content-section.collapsed h2:after {
+            content: "+";
+        }
+
+        .content-section.collapsed .section-content {
+            display: none;
+        }
+
+        .section-content {
+            padding-left: 1rem;
         }
 
         h3 {
-            color: #34495e;
-            margin-top: 25px;
-            font-size: 1.4em;
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
         }
 
         p {
-            margin: 15px 0;
+            margin: 1rem 0;
             text-align: justify;
-            font-size: 16px;
+            font-size: 1rem;
+            line-height: 1.8;
         }
 
         ul, ol {
-            margin: 20px 0;
-            padding-left: 25px;
+            margin: 1.5rem 0 1.5rem 2rem;
         }
 
         li {
-            margin-bottom: 10px;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
         }
 
         a {
-            color: #3498db;
+            color: var(--primary-color);
             text-decoration: none;
         }
 
@@ -277,137 +493,106 @@ async def genera_report_in_background(
             text-decoration: underline;
         }
 
+        blockquote {
+            font-style: italic;
+            border-left: 4px solid var(--primary-color);
+            margin: 1.5rem 0;
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        code {
+            font-family: monospace;
+            background-color: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
-            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: var(--radius);
+            overflow: hidden;
         }
 
         th {
-            background-color: #3498db;
+            background-color: var(--primary-color);
             color: white;
-            font-weight: bold;
-            padding: 12px;
+            font-weight: 500;
+            padding: 1rem;
             text-align: left;
         }
 
         td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: rgba(0,0,0,0.02);
         }
 
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            background-color: white;
-        }
-
-        .highlight {
-            background-color: #f8f9f9;
-            border-left: 4px solid #3498db;
-            padding: 15px;
-            margin: 20px 0;
-        }
-
-        .pro-con {
-            display: flex;
-            margin: 20px 0;
-            gap: 20px;
-        }
-
-        .pros, .cons {
-            flex: 1;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .pros {
-            background-color: #e9f7ef;
-            border: 1px solid #27ae60;
-        }
-
-        .cons {
-            background-color: #fdedec;
-            border: 1px solid #e74c3c;
+        tr:last-child td {
+            border-bottom: none;
         }
 
         .nav-menu {
-            background-color: #2c3e50;
-            padding: 15px;
-            border-radius: 5px;
+            background-color: var(--secondary-color);
+            padding: 1rem;
             position: sticky;
             top: 0;
-            margin-bottom: 20px;
             z-index: 100;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .nav-menu a {
             color: white;
-            margin-right: 15px;
-            padding: 5px 10px;
+            padding: 0.5rem 1rem;
             text-decoration: none;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
 
-        .nav-menu a:hover {
-            background-color: #34495e;
-            border-radius: 3px;
-        }
-
-        .section {
-            background-color: white;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .feature-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .feature-list li {
-            padding: 10px 15px;
-            margin-bottom: 5px;
-            background-color: #f8f9f9;
-            border-left: 3px solid #3498db;
-        }
-
-        blockquote {
-            font-style: italic;
-            border-left: 4px solid #ccc;
-            margin-left: 0;
-            padding-left: 15px;
-            color: #555;
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: var(--primary-color);
         }
 
         .footnote {
-            font-size: 0.9em;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
             color: #777;
-            border-top: 1px solid #eee;
-            margin-top: 30px;
-            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
+            .main-container {
+                padding: 1rem;
             }
 
-            .pro-con {
-                flex-direction: column;
+            header {
+                padding: 1.5rem 1rem;
             }
 
-            .nav-menu {
-                position: static;
+            .header-content h1 {
+                font-size: 2rem;
+            }
+
+            .report-content {
+                padding: 1.5rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
             }
         }
         """

@@ -1,0 +1,39 @@
+🤖 *GUIDA RAPIDA: GENERATORE REPORT AI* 🤖
+
+📑 *COSA FA IL SERVIZIO*
+Un'API che crea automaticamente report professionali in HTML usando intelligenza artificiale. Inserisci un argomento e ottieni un report completo diviso in sezioni, con indice e navigazione.
+
+🔗 *COME USARLO*
+
+1️⃣ *GENERA UN REPORT*
+• URL: http://152.42.131.39:8001/docs
+• Usa l'endpoint "/generate" (POST)
+• Inserisci questo JSON:
+```
+{
+  "argomento": "Titolo del report",
+  "istruzioni": "Descrivi cosa vuoi nel report",
+  "parametri_addizionali": {"lunghezza": "breve"}
+}
+```
+• Riceverai un ID e un link per controllare lo stato
+
+2️⃣ *CONTROLLA LO STATO*
+• Apri il link ricevuto o usa "/status/{report_id}"
+• Vedrai la percentuale di completamento e i file già generati
+
+3️⃣ *VISUALIZZA IL REPORT*
+• Quando è pronto, usa "/links/{report_id}"
+• Riceverai i link diretti da aprire nel browser
+• Esempio: http://152.42.131.39:8001/files/report_20250329_123456/index.html
+
+🔍 *SUGGERIMENTI*
+• Sii specifico nelle istruzioni per risultati migliori
+• I report hanno più sezioni: introduzione, analisi, conclusioni
+• Ogni report ha un design responsive e navigazione interna
+• La generazione richiede 1-3 minuti (dipende dalla lunghezza)
+
+❌ *ELIMINAZIONE*
+• Per cancellare un report: "/reports/{report_id}" (DELETE)
+
+Buona generazione! 🚀

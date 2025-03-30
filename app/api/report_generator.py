@@ -335,6 +335,49 @@ async def view_file(file_path: str):
             )
 
 
+@app.get("/list-files")
+async def list_files():
+    """
+    Elenca tutti i file nella directory workspace.
+
+    Returns:
+        Lista dei file
+    """
+    try:
+        file_list = []
+        # Lista file nella directory principale
+        for item in os.listdir("workspace"):
+            item_path = os.path.join("workspace", item)
+            if os.path.isfile(item_path):
+                file_list.append({"name": item, "type": "file", "path": item_path})
+            elif os.path.isdir(item_path):
+                file_list.append({"name": item, "type": "directory", "path": item_path})
+                # Lista file nelle sottodirectory
+                for subitem in os.listdir(item_path):
+                    subitem_path = os.path.join(item_path, subitem)
+                    if os.path.isfile(subitem_path):
+                        file_list.append(
+                            {
+                                "name": f"{item}/{subitem}",
+                                "type": "file",
+                                "path": subitem_path,
+                            }
+                        )
+                    elif os.path.isdir(subitem_path):
+                        file_list.append(
+                            {
+                                "name": f"{item}/{subitem}",
+                                "type": "directory",
+                                "path": subitem_path,
+                            }
+                        )
+
+        return {"files": file_list, "count": len(file_list)}
+    except Exception as e:
+        logger.error(f"Errore nell'elencare i file: {e}")
+        return {"error": str(e)}
+
+
 def format_instructions(
     argomento: str,
     istruzioni: str,
