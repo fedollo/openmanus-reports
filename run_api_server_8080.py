@@ -15,6 +15,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
+from fastapi.middleware.cors import CORSMiddleware
 
 # Credenziali per l'autenticazione basic
 USERNAME = os.environ.get("API_USERNAME")
@@ -54,13 +55,18 @@ app = FastAPI(
     redoc_url=None,  # Disabilitiamo l'URL redoc predefinito
 )
 
-# Copiamo tutti i router e i middleware dall'app originale
+# Copiamo tutti i router dall'app originale
 for route in original_app.routes:
     app.routes.append(route)
 
-for middleware in original_app.user_middleware:
-    app.add_middleware(middleware.__class__, **middleware.options)
-
+# Configuriamo i middleware manualmente
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Endpoint personalizzato per la documentazione Swagger con autenticazione
 @app.get("/docs", include_in_schema=False)
