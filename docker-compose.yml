@@ -22,3 +22,23 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+
+  report-generator-auth:
+    build: .
+    ports:
+      - "8009:8009"
+    volumes:
+      - ./workspace:/app/workspace
+      - ./config:/app/config
+    environment:
+      - PYTHONUNBUFFERED=1
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - REPORT_DIR=/app/workspace
+      - CMD_ALTERNATIVE=true
+    command: python run_api_server_auth.py
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8009/docs" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
